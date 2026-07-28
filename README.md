@@ -2,6 +2,7 @@
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![Platform](https://img.shields.io/badge/Android-API%2029%2B-3DDC84?logo=android&logoColor=white)](https://developer.android.com)
+[![JitPack](https://jitpack.io/v/aks5686/android-ui-library.svg)](https://jitpack.io/#aks5686/android-ui-library)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/aks5686/android-ui-library/actions/workflows/android.yml/badge.svg)](https://github.com/aks5686/android-ui-library/actions/workflows/android.yml)
 
@@ -28,7 +29,7 @@ dependencyResolutionManagement {
 In your app's `build.gradle.kts`:
 ```kotlin
 dependencies {
-    implementation("com.github.aks5686:android-ui-library:v1.0.1")
+    implementation("com.github.aks5686:android-ui-library:v1.0.3")
 }
 ```
 
