@@ -13,7 +13,7 @@ Production-ready Jetpack Compose component library with Material 3 design tokens
 - Jetpack Compose
 
 ## Components
-- **Buttons:** PrimaryButton, SecondaryButton, DestructiveButton, IconButton, GhostButton
+- **Buttons:** PrimaryButton, SecondaryButton, DestructiveButton, GhostButton, IconButton
 - **Inputs:** TextInput, SecureInput
 - **Feedback:** LoadingView, EmptyStateView, ToastView
 - **Cards:** CardView
