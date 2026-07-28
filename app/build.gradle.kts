@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     alias(libs.plugins.kotlin.compose)
+    id("maven-publish")
 }
 
 android {
@@ -29,6 +30,10 @@ android {
     buildFeatures {
         compose = true
     }
+
+    publishing {
+        singleVariant("release")
+    }
 }
 
 dependencies {
@@ -47,4 +52,17 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "com.github.aks5686"
+                artifactId = "android-ui-library"
+                version = "1.0.1"
+            }
+        }
+    }
 }
