@@ -33,6 +33,35 @@ dependencies {
 }
 ```
 
+## Contributing & Releases
+
+### Making a release
+Releases are fully automated. To publish a new version:
+
+1. Make your changes and ensure the build passes:
+```sh
+   ./gradlew build
+   ./gradlew test
+```
+
+2. Commit with the release prefix:
+```sh
+   git commit -m "release: v1.2.0 — description of changes"
+   git push origin main
+```
+
+3. The CI pipeline will automatically:
+   - Run all tests
+   - Sync build.gradle.kts version to match the commit message
+   - Create a GitHub release with the version tag
+   - JitPack automatically publishes from the release tag
+
+### Version format
+Follow semver: `v{major}.{minor}.{patch}`
+- Patch: `v1.0.1` — bug fixes
+- Minor: `v1.1.0` — new components or features  
+- Major: `v2.0.0` — breaking changes
+
 ## Usage
 
 ### Apply the theme

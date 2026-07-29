@@ -32,12 +32,27 @@ jobs:
             echo "Could not extract version from commit message: $MESSAGE"
             exit 1
           fi
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Sync build.gradle.kts version
+        run: |
+          COMMIT_VERSION="${{ env.VERSION }}"
+          COMMIT_VERSION="${COMMIT_VERSION#v}"
+          sed -i "s/versionName = \".*\"/versionName = \"$COMMIT_VERSION\"/" app/build.gradle.kts
+          echo "Updated versionName to $COMMIT_VERSION"
+
+      - name: Delete existing tag if exists
+        run: git push origin :refs/tags/${{ env.VERSION }} || true
 
       - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create "${{ steps.extract_version.outputs.version }}" \
-            --title "${{ steps.extract_version.outputs.version }}" \
+          gh release create "${{ env.VERSION }}" \
+            --title "${{ env.VERSION }}" \
             --notes "${{ github.event.workflow_run.head_commit.message }}"
+
+      - name: Summary
+        run: |
+          echo "✅ GitHub Release ${{ env.VERSION }} created"
+          echo "✅ JitPack will auto-publish from the release tag"
