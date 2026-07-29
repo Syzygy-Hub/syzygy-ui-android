@@ -22,12 +22,14 @@ private fun InputPreviews() {
     AndroiduilibraryTheme {
         var text by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
+        var bio by remember { mutableStateOf("") }
         Column(
             modifier = Modifier.padding(Spacing.md),
             verticalArrangement = Arrangement.spacedBy(Spacing.sm),
         ) {
             TextInput(label = "Email", value = text, onValueChange = { text = it })
             TextInput(label = "Email", value = text, onValueChange = { text = it }, errorMessage = "Invalid email")
+            TextInput(label = "Bio", value = bio, onValueChange = { bio = it }, maxLength = 100)
             SecureInput(label = "Password", value = password, onValueChange = { password = it })
         }
     }

@@ -102,7 +102,7 @@ LoadingView(message = "Please wait...")
 
 ## Components
 - **Buttons:** PrimaryButton, SecondaryButton, DestructiveButton, GhostButton, IconButton
-- **Inputs:** TextInput, SecureInput
+- **Inputs:** TextInput (with optional character counter via `maxLength`), SecureInput
 - **Feedback:** LoadingView, EmptyStateView, ToastView
 - **Cards:** CardView
 - **Badges:** Badge
