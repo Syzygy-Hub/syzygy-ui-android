@@ -1,10 +1,15 @@
-# android-ui-library
+# syzygy-ui-android
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![Platform](https://img.shields.io/badge/Android-API%2029%2B-3DDC84?logo=android&logoColor=white)](https://developer.android.com)
-[![JitPack](https://jitpack.io/v/aks5686/android-ui-library.svg)](https://jitpack.io/#aks5686/android-ui-library)
+[![JitPack](https://jitpack.io/v/Syzygy-Hub/syzygy-ui-android.svg)](https://jitpack.io/#Syzygy-Hub/syzygy-ui-android)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![CI](https://github.com/aks5686/android-ui-library/actions/workflows/android.yml/badge.svg)](https://github.com/aks5686/android-ui-library/actions/workflows/android.yml)
+[![CI](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/android.yml/badge.svg)](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/android.yml)
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Syzygy-Hub/syzygy-brand-assets/main/Assets/syzygy-banner-dark-2400.png">
+  <img src="https://raw.githubusercontent.com/Syzygy-Hub/syzygy-brand-assets/main/Assets/syzygy-banner-light-2400.png" alt="Syzygy" width="500">
+</picture>
 
 Production-ready Jetpack Compose component library with Material 3 design tokens, Dark Mode, and zero third-party dependencies.
 
@@ -29,9 +34,90 @@ dependencyResolutionManagement {
 In your app's `build.gradle.kts`:
 ```kotlin
 dependencies {
-    implementation("com.github.aks5686:android-ui-library:v1.0.3")
+    implementation("com.github.Syzygy-Hub:syzygy-ui-android:v2.0.0")
 }
 ```
+
+## Components
+
+- **Buttons:** PrimaryButton, SecondaryButton, DestructiveButton, GhostButton, IconButton
+- **Cards:** CardView
+- **Badges:** Badge
+- **Inputs:** TextInput (with optional character counter via `maxLength`), SecureInput, SearchInput (debounced, with clear button), ToggleSwitch, CheckboxInput, RadioButtonInput, SliderInput, Dropdown, SegmentedControl, QuantityStepper
+- **Display:** Avatar, DividerLine, Chip, ListRow, SectionHeader, LazyImageView, StarRatingView, CountBadge
+- **Feedback:** LoadingView, EmptyStateView, ToastView, ShimmerView, ProgressBar, PullToRefresh, ErrorStateView
+- **Overlay:** ModalDialog, BottomSheet, CollapsibleView
+- **Navigation:** BackButton, TabBar, BottomNavigationBar, AppBar, PagerView
+- **Transitions:** `NavigationTransitions.slideTransition(_)`, `.crossFadeTransition()`, `.slideVerticalTransition(_)`, `.modalPresentationTransition()`
+
+See [CHANGELOG.md](CHANGELOG.md) for version history.
+
+## Design Tokens
+
+All tokens live under `tokens/` and are consumed as object members — e.g. `Spacing.md`, `Radius.sm`. Color/typography tokens are layered on top of Material 3's own `ColorScheme`/`Typography` as extension properties.
+
+### Colors (`Colors`)
+Extension properties on Material 3's `ColorScheme`, so they participate in Dark Mode and dynamic color automatically. `primary`/`secondary`/`tertiary` come from the app theme's own light/dark schemes (`ui/theme/Theme.kt`); `success`/`warning`/`danger` are added by this library:
+
+| Token | Value |
+|---|---|
+| `ColorScheme.success` | `#2E7D32` |
+| `ColorScheme.onSuccess` | `#FFFFFF` |
+| `ColorScheme.warning` | `#F9A825` |
+| `ColorScheme.onWarning` | `#000000` |
+| `ColorScheme.danger` | aliases Material 3's `error` |
+| `ColorScheme.onDanger` | aliases Material 3's `onError` |
+
+### Typography (`AppTypography`)
+Semantic aliases on top of Material 3's `Typography` type scale:
+
+| Token | Maps to |
+|---|---|
+| `display` | `displayLarge` |
+| `headline` | `headlineSmall` |
+| `title` | `titleMedium` |
+| `body` | `bodyMedium` |
+| `label` | `labelMedium` |
+| `caption` | `labelSmall` |
+
+```kotlin
+Text(text = "Hello", style = MaterialTheme.typography.title)
+```
+
+### Spacing (`Spacing`)
+
+| Token | Value |
+|---|---|
+| `xs` | 4.dp |
+| `sm` | 8.dp |
+| `md` | 16.dp |
+| `lg` | 24.dp |
+| `xl` | 32.dp |
+| `xxl` | 48.dp |
+
+### Corner Radius (`Radius`)
+
+| Token | Value |
+|---|---|
+| `sm` | 4.dp |
+| `md` | 8.dp |
+| `lg` | 16.dp |
+| `full` | 999.dp (pill/capsule shapes) |
+
+## Usage
+
+```kotlin
+import com.syzygyhub.ui.android.components.buttons.PrimaryButton
+import com.syzygyhub.ui.android.components.inputs.TextInput
+import com.syzygyhub.ui.android.ui.theme.SyzygyUiTheme
+
+SyzygyUiTheme {
+    PrimaryButton(text = "Get Started", onClick = { /* handle click */ })
+    TextInput(label = "Email", value = email, onValueChange = { email = it })
+}
+```
+
+See the [Components](#components) list above for everything else available.
 
 ## Contributing & Releases
 
@@ -59,57 +145,8 @@ Releases are fully automated. To publish a new version:
 ### Version format
 Follow semver: `v{major}.{minor}.{patch}`
 - Patch: `v1.0.1` — bug fixes
-- Minor: `v1.1.0` — new components or features  
+- Minor: `v1.1.0` — new components or features
 - Major: `v2.0.0` — breaking changes
-
-## Usage
-
-### Apply the theme
-```kotlin
-import com.aks.android_ui_library.tokens.Colors
-import com.aks.android_ui_library.tokens.Typography
-
-MaterialTheme(
-    colorScheme = Colors.lightScheme,
-    typography = Typography.default
-) {
-    // your content
-}
-```
-
-### Use components
-```kotlin
-import com.aks.android_ui_library.components.buttons.PrimaryButton
-import com.aks.android_ui_library.components.inputs.TextInput
-import com.aks.android_ui_library.components.feedback.LoadingView
-
-// Button
-PrimaryButton(
-    text = "Get Started",
-    onClick = { /* handle click */ }
-)
-
-// Text input
-TextInput(
-    label = "Email",
-    value = email,
-    onValueChange = { email = it }
-)
-
-// Loading
-LoadingView(message = "Please wait...")
-```
-
-## Components
-- **Buttons:** PrimaryButton, SecondaryButton, DestructiveButton, GhostButton, IconButton
-- **Inputs:** TextInput (with optional character counter via `maxLength`), SecureInput
-- **Feedback:** LoadingView, EmptyStateView, ToastView
-- **Cards:** CardView
-- **Badges:** Badge
-- **Navigation:** BackButton
-
-## Design Tokens
-All components use semantic tokens from tokens/ — colors, typography, spacing, and radius.
 
 ## License
 MIT

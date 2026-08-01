@@ -1,0 +1,20 @@
+# Local override, layered on top of the shared syzygy-lint-config
+# .editorconfig at the repo root (EditorConfig composes properties from the
+# target file's directory up to the nearest root = true file — this file
+# does NOT set root = true, so it augments rather than replaces the shared
+# config).
+#
+# ktlint's default standard:function-naming rule requires functions to start
+# with a lowercase letter. Jetpack Compose's own naming convention requires
+# the opposite for @Composable functions: PascalCase, so they read like the
+# widget/element they emit (e.g. `LazyImageView`, `SyzygyAppBar`) rather than
+# like a regular function call. This is a universally recognized exception in
+# real-world Compose codebases, not a style violation — renaming these would
+# also be a breaking public API change for this library. Disabling the rule
+# here (scoped to this module) avoids ~50 permanent false positives without
+# weakening the rule for non-Compose Kotlin elsewhere in the Syzygy ecosystem.
+#
+# TODO: consider promoting this override into syzygy-lint-config itself,
+# since every Syzygy Compose UI library will hit the same false positives.
+[*.{kt,kts}]
+ktlint_standard_function-naming = disabled

@@ -1,0 +1,39 @@
+# Shared ktlint-compatible EditorConfig for all Syzygy Kotlin/Android repos
+# (syzygy-base-android, syzygy-ui-android, and future Android libraries/apps).
+#
+# ktlint reads standard [*.{kt,kts}] EditorConfig properties plus the
+# ktlint_* keys below directly — no separate ktlint config file is needed.
+# See README.md for how consuming repos should fetch this file into CI.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+[*.{kt,kts}]
+indent_size = 4
+max_line_length = 120
+insert_final_newline = true
+
+# Standard Kotlin conventions (match Android Kotlin style guide defaults).
+ktlint_standard_no-wildcard-imports = enabled
+ktlint_standard_import-ordering = enabled
+ktlint_standard_max-line-length = enabled
+ktlint_standard_final-newline = enabled
+ktlint_standard_no-trailing-spaces = enabled
+
+# Trailing commas are optional stylistic preference in Kotlin; disabled so
+# generated/multi-line call sites aren't forced one way or the other.
+ktlint_standard_trailing-comma-on-call-site = disabled
+ktlint_standard_trailing-comma-on-declaration-site = disabled
+
+[*.{yml,yaml,json}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false

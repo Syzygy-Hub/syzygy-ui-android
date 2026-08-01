@@ -1,15 +1,17 @@
 plugins {
     id("com.android.library")
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ktlint.gradle)
     id("maven-publish")
 }
 
 android {
-    namespace = "com.aks.android_ui_library"
+    namespace = "com.syzygyhub.ui.android"
     compileSdk {
-        version = release(37) {
-            minorApiLevel = 1
-        }
+        version =
+            release(37) {
+                minorApiLevel = 1
+            }
     }
 
     defaultConfig {
@@ -46,6 +48,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -59,10 +62,68 @@ afterEvaluate {
         publications {
             create<MavenPublication>("release") {
                 from(components["release"])
-                groupId = "com.github.aks5686"
-                artifactId = "android-ui-library"
-                version = "1.0.1"
+                groupId = "com.github.Syzygy-Hub"
+                artifactId = "syzygy-ui-android"
+                version = "2.0.0"
             }
         }
     }
+}
+
+// The `org.jlleitschuh.gradle.ktlint` plugin normally generates one check
+// task per Kotlin source set, discovered via the classic Kotlin Gradle
+// Plugin's `KotlinSourceSet` API. This module intentionally does not apply
+// `org.jetbrains.kotlin.android` (applying it conflicts with this AGP
+// version's own built-in Kotlin support — "Cannot add extension with name
+// 'kotlin', as there is an extension already registered with that name" —
+// AGP 9.x registers its own `kotlin` extension and compiles Kotlin sources
+// itself). Without classic KGP present, ktlint-gradle finds zero
+// `KotlinSourceSet`s, so `ktlintCheck` silently only lints `.kts` build
+// scripts and never touches `app/src/**/*.kt`.
+//
+// Fix: depend on the real `ktlint-cli` artifact directly (the same one
+// ktlint-gradle itself uses internally, confirmed via
+// `./gradlew :app:dependencies --configuration ktlint`) and drive it
+// against the actual Kotlin source directories via a plain `JavaExec` task,
+// bypassing the broken source-set auto-discovery entirely. This is still
+// "the ktlint tool" — just invoked directly instead of through the plugin's
+// non-functional auto-wiring — so it doesn't violate the library's
+// zero-third-party-runtime-dependency goal (this is a build-time-only,
+// verification-scoped dependency, same category as `flutter_lints`/eslint
+// configs used elsewhere in the Syzygy ecosystem).
+val ktlintCli by configurations.creating
+
+dependencies {
+    ktlintCli("com.pinterest.ktlint:ktlint-cli:1.0.1")
+}
+
+val ktlintCheckSources by tasks.registering(JavaExec::class) {
+    group = "verification"
+    description = "Runs ktlint directly against app/src/**/*.kt (ktlint-gradle's own source-set " +
+        "discovery finds nothing in this AGP-embedded-Kotlin setup, see comment above)."
+    classpath = ktlintCli
+    mainClass.set("com.pinterest.ktlint.Main")
+    // No explicit --editorconfig: ktlint walks up from each linted file's
+    // directory to find the nearest .editorconfig (standard EditorConfig
+    // resolution), so a repo-root .editorconfig (as fetched from
+    // syzygy-lint-config in CI) is picked up automatically.
+    args = listOf("src/**/*.kt")
+    workingDir = project.projectDir
+}
+
+tasks.named("ktlintCheck") {
+    dependsOn(ktlintCheckSources)
+}
+
+val ktlintFormatSources by tasks.registering(JavaExec::class) {
+    group = "formatting"
+    description = "Auto-fixes ktlint violations in app/src/**/*.kt (see ktlintCheckSources)."
+    classpath = ktlintCli
+    mainClass.set("com.pinterest.ktlint.Main")
+    args = listOf("-F", "src/**/*.kt")
+    workingDir = project.projectDir
+}
+
+tasks.named("ktlintFormat") {
+    dependsOn(ktlintFormatSources)
 }

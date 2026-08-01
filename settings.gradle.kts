@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "android-ui-library"
+rootProject.name = "syzygy-ui-android"
 include(":app")

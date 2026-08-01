@@ -1,0 +1,50 @@
+package com.syzygyhub.ui.android.components.display
+
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.StarBorder
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.dp
+
+private val MinTouchTarget = 48.dp
+
+/**
+ * A star rating display. Pass [onRatingChanged] to make it interactively
+ * tappable; omit it for a read-only display.
+ */
+@Composable
+fun StarRatingView(
+    rating: Int,
+    modifier: Modifier = Modifier,
+    maxRating: Int = 5,
+    onRatingChanged: ((Int) -> Unit)? = null,
+) {
+    Row(modifier = modifier.semantics { contentDescription = "Rating: $rating out of $maxRating stars" }) {
+        for (star in 1..maxRating) {
+            val filled = star <= rating
+            if (onRatingChanged != null) {
+                IconButton(
+                    onClick = { onRatingChanged(star) },
+                    modifier = Modifier.size(MinTouchTarget),
+                ) {
+                    Icon(
+                        imageVector = if (filled) Icons.Filled.Star else Icons.Filled.StarBorder,
+                        contentDescription = "$star star${if (star == 1) "" else "s"}",
+                    )
+                }
+            } else {
+                Icon(
+                    imageVector = if (filled) Icons.Filled.Star else Icons.Filled.StarBorder,
+                    contentDescription = null,
+                )
+            }
+        }
+    }
+}
