@@ -40,7 +40,7 @@ jobs:
 
   instrumented-test:
     name: Instrumented tests (Android Emulator)
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -54,12 +54,18 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
       - name: Run instrumented tests on emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 34
           target: google_apis
-          arch: arm64-v8a
+          arch: x86_64
           profile: pixel_6
           script: ./gradlew connectedAndroidTest
 
