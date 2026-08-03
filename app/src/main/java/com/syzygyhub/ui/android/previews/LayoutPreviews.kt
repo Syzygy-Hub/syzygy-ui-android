@@ -19,6 +19,10 @@ import com.syzygyhub.ui.android.components.inputs.TextInput
 import com.syzygyhub.ui.android.components.layout.AdaptiveStack
 import com.syzygyhub.ui.android.components.layout.FlowLayout
 import com.syzygyhub.ui.android.components.layout.KeyboardAvoidingScrollView
+import com.syzygyhub.ui.android.components.layout.LabeledDivider
+import com.syzygyhub.ui.android.components.layout.LabeledDividerAlignment
+import com.syzygyhub.ui.android.components.layout.SafeAreaEdge
+import com.syzygyhub.ui.android.components.layout.SafeAreaWrapper
 import com.syzygyhub.ui.android.components.layout.StickyHeader
 import com.syzygyhub.ui.android.tokens.Spacing
 import com.syzygyhub.ui.android.ui.theme.SyzygyUiTheme
@@ -50,6 +54,10 @@ private fun LayoutPreviews() {
                     header = { Text("Section", style = MaterialTheme.typography.titleMedium) },
                     content = { Text("Body content") },
                 )
+                LabeledDivider(label = "OR", alignment = LabeledDividerAlignment.CENTER)
+                SafeAreaWrapper(edges = setOf(SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM)) {
+                    Text("Content padded to avoid system bars")
+                }
             }
         }
     }

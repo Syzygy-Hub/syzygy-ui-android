@@ -11,11 +11,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.syzygyhub.ui.android.components.feedback.AppSnackbar
 import com.syzygyhub.ui.android.components.feedback.CircularProgress
+import com.syzygyhub.ui.android.components.feedback.ConfirmDialog
 import com.syzygyhub.ui.android.components.feedback.EmptyStateView
 import com.syzygyhub.ui.android.components.feedback.ErrorStateView
 import com.syzygyhub.ui.android.components.feedback.InlineAlert
 import com.syzygyhub.ui.android.components.feedback.InlineAlertVariant
 import com.syzygyhub.ui.android.components.feedback.LoadingView
+import com.syzygyhub.ui.android.components.feedback.NetworkBannerAlignment
+import com.syzygyhub.ui.android.components.feedback.NetworkStatusBanner
 import com.syzygyhub.ui.android.components.feedback.ProgressBar
 import com.syzygyhub.ui.android.components.feedback.ShimmerView
 import com.syzygyhub.ui.android.components.feedback.SkeletonShape
@@ -59,6 +62,14 @@ private fun FeedbackPreviews() {
             InlineAlert(message = "Your changes were saved.", variant = InlineAlertVariant.SUCCESS)
             InlineAlert(message = "This action can't be undone.", variant = InlineAlertVariant.ERROR)
             AppSnackbar(message = "Copied to clipboard", isVisible = true, onDismiss = {})
+            NetworkStatusBanner(alignment = NetworkBannerAlignment.TOP, manualOverride = true)
+            ConfirmDialog(
+                title = "Delete item?",
+                message = "This action can't be undone.",
+                onConfirm = {},
+                onCancel = {},
+                isDestructive = true,
+            )
         }
     }
 }

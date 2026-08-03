@@ -5,6 +5,17 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-08-04
+
+### Added
+
+- **Display**: `PageControl` (aka DotIndicator; read-only row of dots syncing with `PagerView` — no tap-to-navigate, matching a page indicator's usual role as a passive status readout), `Accordion` (managed group of `CollapsibleView`-style expandable sections with coordinated open/closed state; single-open-at-a-time by default via `allowsMultipleOpen`), `Timeline` (aka ActivityFeed; vertical event list with a dot/icon connecting line, via fixed-height spacer segments rather than a measured `Canvas` path, plus a `TimelineItemAlignment` enum for leading/trailing layouts), `ColorSwatch` (circle/square color preview with optional label and a `focus`/`primary`-colored selection border).
+- **Inputs**: `SearchableDropdown` (its own `ExposedDropdownMenuBox` composition rather than wrapping `Dropdown` directly, since `Dropdown`'s text field is `readOnly` while this one must stay editable to drive the search query), `PhoneInput` (tappable flag + dial-code prefix selector, numeric keyboard, exposes both a formatted display string and a digits-only raw number; ships with a 15-entry real, hardcoded starter country list, injectable via `countries` so consumers can override without forking), `CurrencyInput` (locale-aware formatting via JDK-native `java.text.NumberFormat`/`DecimalFormat`, defaulting to `Locale.getDefault()` but overridable via a `locale` param; exposes the raw `Double` separately from the formatted display string).
+- **Feedback**: `NetworkStatusBanner` (top/bottom-anchored "No internet connection" banner, driven by `ConnectivityManager.NetworkCallback` wrapped in a `produceState`-based Compose state holder; supports a `manualOverride` to force-show/hide), `ConfirmDialog` (preset confirm/cancel modal built on `ModalDialog`, with an `isDestructive` flag styling the confirm button in the `danger` color token).
+- **Layout**: `SafeAreaWrapper` (applies `WindowInsets.safeDrawing` via `Modifier.windowInsetsPadding(...)`, with a configurable `edges` set so consumers opt into only the insets they need — genuinely load-bearing on Android, unlike iOS where safe-area handling is largely automatic), `LabeledDivider` (`DividerLine` broken by a centered/leading/trailing text label, via a `Row` of two weighted `DividerLine` segments flanking the label).
+
+No CI/lint carry-over fixes were needed for this release — Android's ktlint setup was already fully consistent between local and CI.
+
 ## [2.1.0] - 2026-08-03
 
 ### Added

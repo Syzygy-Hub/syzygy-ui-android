@@ -11,14 +11,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.syzygyhub.ui.android.components.inputs.CheckboxInput
+import com.syzygyhub.ui.android.components.inputs.CurrencyInput
 import com.syzygyhub.ui.android.components.inputs.DatePickerField
+import com.syzygyhub.ui.android.components.inputs.DefaultPhoneCountries
 import com.syzygyhub.ui.android.components.inputs.Dropdown
 import com.syzygyhub.ui.android.components.inputs.FormField
 import com.syzygyhub.ui.android.components.inputs.OTPInput
 import com.syzygyhub.ui.android.components.inputs.PasswordStrengthIndicator
+import com.syzygyhub.ui.android.components.inputs.PhoneInput
 import com.syzygyhub.ui.android.components.inputs.QuantityStepper
 import com.syzygyhub.ui.android.components.inputs.RadioButtonInput
 import com.syzygyhub.ui.android.components.inputs.SearchInput
+import com.syzygyhub.ui.android.components.inputs.SearchableDropdown
 import com.syzygyhub.ui.android.components.inputs.SecureInput
 import com.syzygyhub.ui.android.components.inputs.SegmentedControl
 import com.syzygyhub.ui.android.components.inputs.SliderInput
@@ -52,6 +56,10 @@ private fun InputPreviews() {
         var date by remember { mutableStateOf<java.time.LocalDate?>(null) }
         var time by remember { mutableStateOf<java.time.LocalTime?>(null) }
         var newPassword by remember { mutableStateOf("") }
+        var searchableSelection by remember { mutableStateOf<String?>(null) }
+        var phoneCountry by remember { mutableStateOf(DefaultPhoneCountries.first()) }
+        var phoneRaw by remember { mutableStateOf("") }
+        var amount by remember { mutableStateOf<Double?>(1234.5) }
 
         Column(
             modifier = Modifier.padding(Spacing.md),
@@ -90,6 +98,20 @@ private fun InputPreviews() {
                 TextInput(label = "Email", value = text, onValueChange = { text = it })
             }
             PasswordStrengthIndicator(password = newPassword)
+            SearchableDropdown(
+                label = "Country",
+                selection = searchableSelection,
+                options = listOf("United States", "United Kingdom", "Ireland"),
+                onSelectionChange = { searchableSelection = it },
+                optionTitle = { it },
+            )
+            PhoneInput(
+                country = phoneCountry,
+                rawNumber = phoneRaw,
+                onCountryChange = { phoneCountry = it },
+                onValueChange = { phoneRaw = it },
+            )
+            CurrencyInput(label = "Price", value = amount, onValueChange = { amount = it })
         }
     }
 }

@@ -2,7 +2,7 @@
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![Platform](https://img.shields.io/badge/Android-API%2029%2B-3DDC84?logo=android&logoColor=white)](https://developer.android.com)
-[![Version](https://img.shields.io/badge/Version-v2.1.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-v2.2.0-blue.svg)](CHANGELOG.md)
 [![JitPack](https://jitpack.io/v/Syzygy-Hub/syzygy-ui-android.svg)](https://jitpack.io/#Syzygy-Hub/syzygy-ui-android)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/android.yml/badge.svg)](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/android.yml)
@@ -35,23 +35,23 @@ dependencyResolutionManagement {
 In your app's `build.gradle.kts`:
 ```kotlin
 dependencies {
-    implementation("com.github.Syzygy-Hub:syzygy-ui-android:v2.1.0")
+    implementation("com.github.Syzygy-Hub:syzygy-ui-android:v2.2.0")
 }
 ```
 
 ## Components
 
-68 components across 9 categories (counted individually below):
+79 components across 9 categories (counted individually below):
 
 - **Buttons:** PrimaryButton, SecondaryButton, DestructiveButton, GhostButton, IconButton, LoadingButton, AppFloatingActionButton, ButtonGroup
 - **Cards:** CardView
 - **Badges:** Badge
-- **Inputs:** TextInput (with optional character counter via `maxLength`), SecureInput, SearchInput (debounced, with clear button), ToggleSwitch, CheckboxInput, RadioButtonInput, SliderInput, Dropdown, SegmentedControl, QuantityStepper, TextArea, OTPInput, TagInput, DatePickerField, TimePickerField, FormField, PasswordStrengthIndicator
-- **Display:** Avatar, DividerLine, Chip, ListRow, SectionHeader, LazyImageView, StarRatingView, CountBadge, AvatarGroup, StatsCard (aka MetricCard), RatingInput
-- **Feedback:** LoadingView, EmptyStateView, ToastView, ShimmerView, ProgressBar, PullToRefresh, ErrorStateView, SkeletonView, CircularProgress, InlineAlert (aka Banner), AppSnackbar
+- **Inputs:** TextInput (with optional character counter via `maxLength`), SecureInput, SearchInput (debounced, with clear button), ToggleSwitch, CheckboxInput, RadioButtonInput, SliderInput, Dropdown, SegmentedControl, QuantityStepper, TextArea, OTPInput, TagInput, DatePickerField, TimePickerField, FormField, PasswordStrengthIndicator, SearchableDropdown (inline search/filter over `Dropdown`'s options), PhoneInput (country-code prefix selector + numeric keyboard), CurrencyInput (locale-formatted, via JDK `NumberFormat`)
+- **Display:** Avatar, DividerLine, Chip, ListRow, SectionHeader, LazyImageView, StarRatingView, CountBadge, AvatarGroup, StatsCard (aka MetricCard), RatingInput, PageControl (aka DotIndicator; syncs with `PagerView`), Accordion (managed group of `CollapsibleView`-style sections), Timeline (aka ActivityFeed), ColorSwatch
+- **Feedback:** LoadingView, EmptyStateView, ToastView, ShimmerView, ProgressBar, PullToRefresh, ErrorStateView, SkeletonView, CircularProgress, InlineAlert (aka Banner), AppSnackbar, NetworkStatusBanner (`ConnectivityManager`-driven, auto-dismissing), ConfirmDialog (preset confirm/cancel `ModalDialog`)
 - **Overlay:** ModalDialog, BottomSheet, CollapsibleView, ActionSheet, Popover, Tooltip
 - **Navigation:** BackButton, TabBar, BottomNavigationBar, AppBar, SideMenu (aka Drawer), FloatingTabBar, StepIndicator (aka WizardSteps), Breadcrumbs
-- **Layout:** KeyboardAvoidingScrollView, PagerView (presentational paged content — distinct from navigation chrome like TabBar/BottomNavigationBar), AdaptiveStack, FlowLayout, StickyHeader
+- **Layout:** KeyboardAvoidingScrollView, PagerView (presentational paged content — distinct from navigation chrome like TabBar/BottomNavigationBar), AdaptiveStack, FlowLayout, StickyHeader, SafeAreaWrapper (native `WindowInsets.safeDrawing` handling), LabeledDivider (`DividerLine` with a centered/leading/trailing text label)
 - **Transitions:** `NavigationTransitions.slideTransition(_)`, `.crossFadeTransition()`, `.slideVerticalTransition(_)`, `.modalPresentationTransition()`, `.scaleTransition()`, `.fadeThroughTransition()`
 
 See [CHANGELOG.md](CHANGELOG.md) for version history.
