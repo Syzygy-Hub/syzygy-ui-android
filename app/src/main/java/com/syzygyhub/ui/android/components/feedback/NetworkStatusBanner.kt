@@ -37,9 +37,11 @@ private fun rememberIsOnline(): Boolean {
     val context = LocalContext.current
     val isOnline by produceState(initialValue = true, context) {
         val connectivityManager = context.getSystemService(ConnectivityManager::class.java)
+
         // ACCESS_NETWORK_STATE permission is required by consuming apps — not declared here as this is a library module.
         @SuppressLint("MissingPermission")
         val activeNetwork = connectivityManager?.activeNetwork
+
         // ACCESS_NETWORK_STATE permission is required by consuming apps — not declared here as this is a library module.
         @SuppressLint("MissingPermission")
         val capabilities = activeNetwork?.let { connectivityManager.getNetworkCapabilities(it) }
@@ -62,6 +64,7 @@ private fun rememberIsOnline(): Boolean {
                     value = networkCapabilities.hasCapability(android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET)
                 }
             }
+
         // ACCESS_NETWORK_STATE permission is required by consuming apps — not declared here as this is a library module.
         @SuppressLint("MissingPermission")
         val registration = connectivityManager?.registerDefaultNetworkCallback(callback)
