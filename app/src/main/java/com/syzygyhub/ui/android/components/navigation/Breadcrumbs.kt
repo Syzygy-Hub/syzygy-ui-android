@@ -1,0 +1,43 @@
+package com.syzygyhub.ui.android.components.navigation
+
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import com.syzygyhub.ui.android.tokens.Colors.separator
+import com.syzygyhub.ui.android.tokens.Spacing
+
+/** A horizontal trail of tappable navigation labels, separated by a "/" glyph. */
+@Composable
+fun Breadcrumbs(
+    items: List<Pair<String, () -> Unit>>,
+    modifier: Modifier = Modifier,
+) {
+    Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+        items.forEachIndexed { index, (label, onClick) ->
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelMedium,
+                color =
+                    if (index == items.lastIndex) {
+                        MaterialTheme.colorScheme.onSurface
+                    } else {
+                        MaterialTheme.colorScheme.primary
+                    },
+                modifier = Modifier.clickable(enabled = index != items.lastIndex, onClick = onClick),
+            )
+            if (index != items.lastIndex) {
+                Text(
+                    text = " / ",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.separator,
+                    modifier = Modifier.padding(horizontal = Spacing.xxs),
+                )
+            }
+        }
+    }
+}

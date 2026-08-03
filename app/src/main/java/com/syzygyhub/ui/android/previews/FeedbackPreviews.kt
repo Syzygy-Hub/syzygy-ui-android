@@ -8,11 +8,18 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.syzygyhub.ui.android.components.feedback.AppSnackbar
+import com.syzygyhub.ui.android.components.feedback.CircularProgress
 import com.syzygyhub.ui.android.components.feedback.EmptyStateView
 import com.syzygyhub.ui.android.components.feedback.ErrorStateView
+import com.syzygyhub.ui.android.components.feedback.InlineAlert
+import com.syzygyhub.ui.android.components.feedback.InlineAlertVariant
 import com.syzygyhub.ui.android.components.feedback.LoadingView
 import com.syzygyhub.ui.android.components.feedback.ProgressBar
 import com.syzygyhub.ui.android.components.feedback.ShimmerView
+import com.syzygyhub.ui.android.components.feedback.SkeletonShape
+import com.syzygyhub.ui.android.components.feedback.SkeletonView
 import com.syzygyhub.ui.android.components.feedback.ToastVariant
 import com.syzygyhub.ui.android.components.feedback.ToastView
 import com.syzygyhub.ui.android.tokens.Spacing
@@ -45,6 +52,13 @@ private fun FeedbackPreviews() {
             ToastView(message = "Something went wrong", variant = ToastVariant.ERROR)
             ShimmerView()
             ProgressBar(progress = 0.65f)
+            SkeletonView(width = 120.dp, height = 16.dp)
+            SkeletonView(width = 48.dp, height = 48.dp, shape = SkeletonShape.CIRCLE)
+            CircularProgress(progress = 0.4f)
+            CircularProgress(progress = null)
+            InlineAlert(message = "Your changes were saved.", variant = InlineAlertVariant.SUCCESS)
+            InlineAlert(message = "This action can't be undone.", variant = InlineAlertVariant.ERROR)
+            AppSnackbar(message = "Copied to clipboard", isVisible = true, onDismiss = {})
         }
     }
 }

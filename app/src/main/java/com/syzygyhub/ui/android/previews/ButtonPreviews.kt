@@ -8,9 +8,12 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.syzygyhub.ui.android.components.buttons.AppFloatingActionButton
+import com.syzygyhub.ui.android.components.buttons.ButtonGroup
 import com.syzygyhub.ui.android.components.buttons.DestructiveButton
 import com.syzygyhub.ui.android.components.buttons.GhostButton
 import com.syzygyhub.ui.android.components.buttons.IconButton
+import com.syzygyhub.ui.android.components.buttons.LoadingButton
 import com.syzygyhub.ui.android.components.buttons.PrimaryButton
 import com.syzygyhub.ui.android.components.buttons.SecondaryButton
 import com.syzygyhub.ui.android.tokens.Spacing
@@ -30,6 +33,16 @@ private fun ButtonPreviews() {
             DestructiveButton(text = "Destructive", onClick = {})
             GhostButton(text = "Ghost", onClick = {})
             IconButton(icon = Icons.Filled.Favorite, contentDescription = "Favorite", onClick = {})
+            LoadingButton(label = "Submit", isLoading = false, onClick = {})
+            LoadingButton(label = "Submit", isLoading = true, onClick = {})
+            AppFloatingActionButton(icon = Icons.Filled.Favorite, contentDescription = "Favorite", onClick = {})
+            ButtonGroup(options = listOf("Day", "Week", "Month"), selection = listOf(0), onSelectionChange = {})
+            ButtonGroup(
+                options = listOf("Bold", "Italic", "Underline"),
+                selection = listOf(0, 2),
+                onSelectionChange = {},
+                multiSelect = true,
+            )
         }
     }
 }

@@ -4,6 +4,8 @@ import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 
 /**
  * Semantic type scale built on top of Material 3 [Typography].
@@ -33,4 +35,9 @@ object AppTypography {
     val Typography.caption: TextStyle
         @Composable @ReadOnlyComposable
         get() = labelSmall
+
+    /** A large display style for hero/title screens, bolder and larger than [display]. */
+    val Typography.largeTitle: TextStyle
+        @Composable @ReadOnlyComposable
+        get() = displayLarge.copy(fontSize = 34.sp, fontWeight = FontWeight.Bold)
 }

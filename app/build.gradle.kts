@@ -64,7 +64,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.Syzygy-Hub"
                 artifactId = "syzygy-ui-android"
-                version = "2.0.0"
+                version = "2.1.0"
             }
         }
     }
@@ -91,38 +91,40 @@ afterEvaluate {
 // zero-third-party-runtime-dependency goal (this is a build-time-only,
 // verification-scoped dependency, same category as `flutter_lints`/eslint
 // configs used elsewhere in the Syzygy ecosystem).
-val ktlintCli by configurations.creating
+val ktlintCli = configurations.register("ktlintCli") { }
 
 dependencies {
-    ktlintCli("com.pinterest.ktlint:ktlint-cli:1.0.1")
+    add(ktlintCli.name, "com.pinterest.ktlint:ktlint-cli:1.0.1")
 }
 
-val ktlintCheckSources by tasks.registering(JavaExec::class) {
-    group = "verification"
-    description = "Runs ktlint directly against app/src/**/*.kt (ktlint-gradle's own source-set " +
-        "discovery finds nothing in this AGP-embedded-Kotlin setup, see comment above)."
-    classpath = ktlintCli
-    mainClass.set("com.pinterest.ktlint.Main")
-    // No explicit --editorconfig: ktlint walks up from each linted file's
-    // directory to find the nearest .editorconfig (standard EditorConfig
-    // resolution), so a repo-root .editorconfig (as fetched from
-    // syzygy-lint-config in CI) is picked up automatically.
-    args = listOf("src/**/*.kt")
-    workingDir = project.projectDir
-}
+val ktlintCheckSources =
+    tasks.register<JavaExec>("ktlintCheckSources") {
+        group = "verification"
+        description = "Runs ktlint directly against app/src/**/*.kt (ktlint-gradle's own source-set " +
+            "discovery finds nothing in this AGP-embedded-Kotlin setup, see comment above)."
+        classpath = ktlintCli.get()
+        mainClass.set("com.pinterest.ktlint.Main")
+        // No explicit --editorconfig: ktlint walks up from each linted file's
+        // directory to find the nearest .editorconfig (standard EditorConfig
+        // resolution), so a repo-root .editorconfig (as fetched from
+        // syzygy-lint-config in CI) is picked up automatically.
+        args = listOf("src/**/*.kt")
+        workingDir = project.projectDir
+    }
 
 tasks.named("ktlintCheck") {
     dependsOn(ktlintCheckSources)
 }
 
-val ktlintFormatSources by tasks.registering(JavaExec::class) {
-    group = "formatting"
-    description = "Auto-fixes ktlint violations in app/src/**/*.kt (see ktlintCheckSources)."
-    classpath = ktlintCli
-    mainClass.set("com.pinterest.ktlint.Main")
-    args = listOf("-F", "src/**/*.kt")
-    workingDir = project.projectDir
-}
+val ktlintFormatSources =
+    tasks.register<JavaExec>("ktlintFormatSources") {
+        group = "formatting"
+        description = "Auto-fixes ktlint violations in app/src/**/*.kt (see ktlintCheckSources)."
+        classpath = ktlintCli.get()
+        mainClass.set("com.pinterest.ktlint.Main")
+        args = listOf("-F", "src/**/*.kt")
+        workingDir = project.projectDir
+    }
 
 tasks.named("ktlintFormat") {
     dependsOn(ktlintFormatSources)

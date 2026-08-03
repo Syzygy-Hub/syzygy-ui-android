@@ -10,14 +10,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.syzygyhub.ui.android.components.display.Avatar
+import com.syzygyhub.ui.android.components.display.AvatarGroup
 import com.syzygyhub.ui.android.components.display.AvatarSize
 import com.syzygyhub.ui.android.components.display.Chip
 import com.syzygyhub.ui.android.components.display.CountBadge
 import com.syzygyhub.ui.android.components.display.DividerLine
 import com.syzygyhub.ui.android.components.display.LazyImageView
 import com.syzygyhub.ui.android.components.display.ListRow
+import com.syzygyhub.ui.android.components.display.RatingInput
 import com.syzygyhub.ui.android.components.display.SectionHeader
 import com.syzygyhub.ui.android.components.display.StarRatingView
+import com.syzygyhub.ui.android.components.display.StatsCard
+import com.syzygyhub.ui.android.components.display.Trend
 import com.syzygyhub.ui.android.tokens.Spacing
 import com.syzygyhub.ui.android.ui.theme.SyzygyUiTheme
 
@@ -49,6 +53,9 @@ private fun DisplayPreviews() {
                 CountBadge()
             }
             LazyImageView(url = null, modifier = Modifier.size(80.dp))
+            AvatarGroup(avatars = listOf("AK", "BC", "DE", "FG", "HI"), max = 3)
+            StatsCard(label = "Revenue", value = "$12.4k", trend = Trend.UP, trendValue = "+12%")
+            RatingInput(rating = 3, onRatingChange = {})
         }
     }
 }

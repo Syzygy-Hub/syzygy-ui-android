@@ -5,6 +5,28 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-08-03
+
+### Added
+
+- **Buttons**: `LoadingButton` (built-in loading spinner, disabled while loading), `AppFloatingActionButton` (named to avoid colliding with Material 3's own `FloatingActionButton`), `ButtonGroup` (segmented row, single- or multi-select via `multiSelect`).
+- **Inputs**: `TextArea` (multi-line, native `minLines`/`maxLines`), `OTPInput` (fixed-length auto-advancing code entry), `TagInput` (dismissible `Chip`-backed tag entry), `DatePickerField`/`TimePickerField` (wrap Material 3's `DatePicker`/`TimePicker` in a dialog, showing formatted text when closed), `FormField` (generic label/content/error/helper wrapper), `PasswordStrengthIndicator` (real length + character-class heuristic, not hardcoded).
+- **Display**: `AvatarGroup` (overlapping `Avatar` stack with "+N" overflow), `StatsCard` (aka MetricCard; label/value/trend), `RatingInput` (dedicated interactive counterpart to the read-only-by-default `StarRatingView`).
+- **Feedback**: `SkeletonView` (shape/size-parameterized shimmer placeholder, mirrors `ShimmerView`'s animation), `CircularProgress` (determinate + indeterminate), `InlineAlert` (aka Banner; 4 variants using the new `*Muted` color tokens), `AppSnackbar` (named to avoid colliding with Material 3's `Snackbar`; standalone presentational composable with its own `LaunchedEffect`-driven auto-dismiss, consistent with this library's no-hidden-global-state pattern).
+- **Overlay**: `ActionSheet` (bottom-anchored labelled actions, follows `BottomSheet`'s `ModalBottomSheet` presentation convention), `Popover` (anchored floating content via `Popup`), `Tooltip` (wraps Material 3's `TooltipBox`/`PlainTooltip`).
+- **Navigation**: `SideMenu` (aka Drawer; wraps `ModalNavigationDrawer` behind a simple `isOpen`/`onClose` boolean rather than exposing `DrawerState` directly), `FloatingTabBar` (floating pill bar with icon **and** label per item — the remaining cell in the {edge-to-edge vs floating} x {icon-only vs icon+label} matrix, distinct from the floating, icon-only `BottomNavigationBar`), `StepIndicator` (aka WizardSteps; active/completed/pending step progress), `Breadcrumbs` (tappable navigation trail using the new `separator` color token).
+- **Layout**: `AdaptiveStack` (`Row` above a width breakpoint, `Column` below, via `BoxWithConstraints`), `FlowLayout` (wraps Compose Foundation's native `FlowRow`), `StickyHeader` (wraps `LazyColumn`'s native `stickyHeader { }`).
+- **Transitions**: `NavigationTransitions.scaleTransition()`, `.fadeThroughTransition()` (sequential fade-out-then-fade-in, not a simultaneous cross-fade).
+- **Design tokens**: new `Colors` entries `primaryMuted`, `destructiveMuted`, `successMuted`, `warningMuted`, `surfaceSecondary`, `surfaceTertiary`, `textTertiary`, `overlay`, `link`, `focus`, `separator`; new `AppTypography.largeTitle`; new `Spacing.xxs`/`Spacing.xxxl`; new `Radius.xs`/`Radius.xl`; new token files `Elevation`, `Opacity`, `BorderWidth`, `IconSize`, `Animation` (`Duration` + `Easing`, with `spring()` kept as a factory function rather than a plain `Easing` since Compose's `spring()` is its own `AnimationSpec` type).
+
+### Fixed
+
+- **`PagerView` moved from the Navigation category to Layout**: it's presentational paged content (already documented in its own doc comment as distinct from `TabBar`'s navigation chrome), not navigation chrome, and this repo already has a `layout/` component directory. This release also adds the `Layout:` bullet line to README's Components section for the first time — the category has existed in code since `KeyboardAvoidingScrollView` was added, but the README bullet was never created for it.
+
+### Changed
+
+- README's Design Tokens section condensed from per-token prose into compact `| Token | Value |` reference tables, applied uniformly across both existing and newly-added token categories.
+
 ## [2.0.0] - 2026-08-01
 
 ### Changed — BREAKING

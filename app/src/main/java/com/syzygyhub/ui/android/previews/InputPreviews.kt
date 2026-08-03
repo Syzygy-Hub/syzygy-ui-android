@@ -11,14 +11,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.syzygyhub.ui.android.components.inputs.CheckboxInput
+import com.syzygyhub.ui.android.components.inputs.DatePickerField
 import com.syzygyhub.ui.android.components.inputs.Dropdown
+import com.syzygyhub.ui.android.components.inputs.FormField
+import com.syzygyhub.ui.android.components.inputs.OTPInput
+import com.syzygyhub.ui.android.components.inputs.PasswordStrengthIndicator
 import com.syzygyhub.ui.android.components.inputs.QuantityStepper
 import com.syzygyhub.ui.android.components.inputs.RadioButtonInput
 import com.syzygyhub.ui.android.components.inputs.SearchInput
 import com.syzygyhub.ui.android.components.inputs.SecureInput
 import com.syzygyhub.ui.android.components.inputs.SegmentedControl
 import com.syzygyhub.ui.android.components.inputs.SliderInput
+import com.syzygyhub.ui.android.components.inputs.TagInput
+import com.syzygyhub.ui.android.components.inputs.TextArea
 import com.syzygyhub.ui.android.components.inputs.TextInput
+import com.syzygyhub.ui.android.components.inputs.TimePickerField
 import com.syzygyhub.ui.android.components.inputs.ToggleSwitch
 import com.syzygyhub.ui.android.tokens.Spacing
 import com.syzygyhub.ui.android.ui.theme.SyzygyUiTheme
@@ -39,6 +46,12 @@ private fun InputPreviews() {
         var dropdownSelection by remember { mutableStateOf("Option 1") }
         var segment by remember { mutableStateOf("Day") }
         var quantity by remember { mutableStateOf(1) }
+        var bioArea by remember { mutableStateOf("") }
+        var otp by remember { mutableStateOf("") }
+        var tags by remember { mutableStateOf(listOf("kotlin", "compose")) }
+        var date by remember { mutableStateOf<java.time.LocalDate?>(null) }
+        var time by remember { mutableStateOf<java.time.LocalTime?>(null) }
+        var newPassword by remember { mutableStateOf("") }
 
         Column(
             modifier = Modifier.padding(Spacing.md),
@@ -68,6 +81,15 @@ private fun InputPreviews() {
                 optionTitle = { it },
             )
             QuantityStepper(value = quantity, onValueChange = { quantity = it })
+            TextArea(label = "Bio", value = bioArea, onValueChange = { bioArea = it })
+            OTPInput(code = otp, onCodeChange = { otp = it })
+            TagInput(tags = tags, onTagsChange = { tags = it })
+            DatePickerField(label = "Birthdate", date = date, onDateChange = { date = it })
+            TimePickerField(label = "Reminder time", time = time, onTimeChange = { time = it })
+            FormField(label = "Email", helperText = "We'll never share it") {
+                TextInput(label = "Email", value = text, onValueChange = { text = it })
+            }
+            PasswordStrengthIndicator(password = newPassword)
         }
     }
 }

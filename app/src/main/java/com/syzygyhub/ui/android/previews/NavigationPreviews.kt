@@ -12,6 +12,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.syzygyhub.ui.android.components.navigation.AppBar
 import com.syzygyhub.ui.android.components.navigation.BackButton
 import com.syzygyhub.ui.android.components.navigation.BottomNavigationBar
+import com.syzygyhub.ui.android.components.navigation.Breadcrumbs
+import com.syzygyhub.ui.android.components.navigation.FloatingTabBar
+import com.syzygyhub.ui.android.components.navigation.StepIndicator
 import com.syzygyhub.ui.android.components.navigation.TabBar
 import com.syzygyhub.ui.android.components.navigation.TabBarItem
 import com.syzygyhub.ui.android.tokens.Spacing
@@ -37,6 +40,21 @@ private fun NavigationPreviews() {
                 items = previewTabItems,
                 selection = "search",
                 onSelectionChange = {},
+                modifier = Modifier.padding(Spacing.md),
+            )
+            FloatingTabBar(
+                items = previewTabItems,
+                selection = "profile",
+                onSelectionChange = {},
+                modifier = Modifier.padding(Spacing.md),
+            )
+            StepIndicator(
+                steps = listOf("Cart", "Shipping", "Payment", "Review"),
+                currentStep = 1,
+                modifier = Modifier.padding(Spacing.md),
+            )
+            Breadcrumbs(
+                items = listOf("Home" to {}, "Settings" to {}, "Profile" to {}),
                 modifier = Modifier.padding(Spacing.md),
             )
         }
