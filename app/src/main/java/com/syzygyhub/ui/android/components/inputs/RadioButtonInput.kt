@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 
 private val MinTouchTarget = 48.dp
@@ -32,7 +33,10 @@ fun RadioButtonInput(
             modifier
                 .defaultMinSize(minHeight = MinTouchTarget)
                 .selectable(selected = selected, onClick = onClick, role = Role.RadioButton)
-                .semantics { contentDescription = label },
+                .semantics {
+                    contentDescription = label
+                    stateDescription = if (selected) "Selected" else "Not selected"
+                },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         RadioButton(selected = selected, onClick = null)

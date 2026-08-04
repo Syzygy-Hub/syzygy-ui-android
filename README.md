@@ -2,7 +2,7 @@
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![Platform](https://img.shields.io/badge/Android-API%2029%2B-3DDC84?logo=android&logoColor=white)](https://developer.android.com)
-[![Version](https://img.shields.io/badge/Version-v2.2.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-2.2.1-blue.svg)](CHANGELOG.md)
 [![JitPack](https://jitpack.io/v/Syzygy-Hub/syzygy-ui-android.svg)](https://jitpack.io/#Syzygy-Hub/syzygy-ui-android)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/android.yml/badge.svg)](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/android.yml)
@@ -53,6 +53,8 @@ dependencies {
 - **Navigation:** BackButton, TabBar, BottomNavigationBar, AppBar, SideMenu (aka Drawer), FloatingTabBar, StepIndicator (aka WizardSteps), Breadcrumbs
 - **Layout:** KeyboardAvoidingScrollView, PagerView (presentational paged content — distinct from navigation chrome like TabBar/BottomNavigationBar), AdaptiveStack, FlowLayout, StickyHeader, SafeAreaWrapper (native `WindowInsets.safeDrawing` handling), LabeledDivider (`DividerLine` with a centered/leading/trailing text label)
 - **Transitions:** `NavigationTransitions.slideTransition(_)`, `.crossFadeTransition()`, `.slideVerticalTransition(_)`, `.modalPresentationTransition()`, `.scaleTransition()`, `.fadeThroughTransition()`
+
+**NetworkStatusBanner — cross-platform note**: On iOS and Android, `NetworkStatusBanner` self-detects connectivity via first-party OS APIs (`NWPathMonitor` / `ConnectivityManager`) and requires no `isOffline` prop. On React Native and Flutter, real network detection requires a third-party package that this library deliberately does not bundle, so the banner is controlled/presentational — pass `isOffline` from your own network state.
 
 See [CHANGELOG.md](CHANGELOG.md) for version history.
 

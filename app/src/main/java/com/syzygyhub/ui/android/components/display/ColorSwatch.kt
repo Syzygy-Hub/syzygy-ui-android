@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.syzygyhub.ui.android.tokens.Radius
 import com.syzygyhub.ui.android.tokens.Spacing
@@ -25,7 +26,6 @@ import com.syzygyhub.ui.android.tokens.Spacing
 /** The outline shape a [ColorSwatch] renders as. */
 enum class ColorSwatchShape { CIRCLE, SQUARE }
 
-private val SwatchSize = 40.dp
 private val SelectionBorderWidth = 2.dp
 
 /**
@@ -40,6 +40,7 @@ fun ColorSwatch(
     label: String? = null,
     shape: ColorSwatchShape = ColorSwatchShape.CIRCLE,
     isSelected: Boolean = false,
+    size: Dp = 32.dp,
 ) {
     val clipShape: Shape = if (shape == ColorSwatchShape.CIRCLE) CircleShape else RoundedCornerShape(Radius.sm)
 
@@ -50,7 +51,7 @@ fun ColorSwatch(
         Box(
             modifier =
                 Modifier
-                    .size(SwatchSize)
+                    .size(size)
                     .clip(clipShape)
                     .background(color)
                     .then(

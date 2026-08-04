@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 
 private val MinTouchTarget = 48.dp
@@ -28,7 +29,10 @@ fun CheckboxInput(
         modifier =
             modifier
                 .defaultMinSize(minHeight = MinTouchTarget)
-                .semantics { contentDescription = label },
+                .semantics {
+                    contentDescription = label
+                    stateDescription = if (checked) "Checked" else "Unchecked"
+                },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Checkbox(checked = checked, onCheckedChange = onCheckedChange)

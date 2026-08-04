@@ -5,6 +5,18 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.1] - 2026-08-04
+
+### Added
+- `ColorSwatch`: `size: Dp = 32.dp` parameter lets callers override the swatch diameter/side length
+- `CheckboxInput`, `RadioButtonInput`, `ToggleSwitch`: `stateDescription` in the `semantics` block announces checked/selected/on state to TalkBack (Android 12+)
+- `ComposeComponentSmokeTest`: 10 instrumented smoke tests covering `PrimaryButton`, `TextInput`, `ConfirmDialog`, `ModalDialog`, `BottomSheet`, `NetworkStatusBanner`, `Accordion`, `PhoneInput`, `SearchableDropdown`, `StepIndicator` (8 → 18 instrumented tests)
+
+### Fixed
+- `Radius.full`: corrected from `999.dp` to `9999.dp` to match cross-platform token spec
+- `ColorSwatch`: `SwatchSize` corrected from `40.dp` to `32.dp` to match design spec
+- README: removed erroneous extra "v" prefix from version badge (`Version-v2.2.0` → `Version-2.2.0`)
+
 ## [2.2.0] - 2026-08-04
 
 ### Added

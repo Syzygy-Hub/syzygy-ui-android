@@ -15,6 +15,6 @@ class RadiusTest {
 
     @Test
     fun radius_full_is_effectively_a_pill() {
-        assertEquals(999f, Radius.full.value)
+        assertEquals(9999f, Radius.full.value)
     }
 }
