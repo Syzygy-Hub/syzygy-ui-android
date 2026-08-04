@@ -11,14 +11,14 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.syzygyhub.ui.android.components.overlay.ModalDialog
-import com.syzygyhub.ui.android.tokens.Colors.danger
+import com.syzygyhub.ui.android.tokens.Colors.destructive
 import com.syzygyhub.ui.android.tokens.Spacing
 
 /**
  * A preset confirm/cancel modal built on top of [ModalDialog] rather than
  * presenting its own [androidx.compose.ui.window.Dialog] — title, message,
  * and two action buttons. When [isDestructive] is true, the confirm button
- * is styled with the `danger` color token.
+ * is styled with the `destructive` color token.
  */
 @Composable
 fun ConfirmDialog(
@@ -53,7 +53,7 @@ fun ConfirmDialog(
                 onClick = onConfirm,
                 colors =
                     if (isDestructive) {
-                        ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.danger)
+                        ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.destructive)
                     } else {
                         ButtonDefaults.textButtonColors()
                     },

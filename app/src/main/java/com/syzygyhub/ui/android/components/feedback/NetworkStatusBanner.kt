@@ -18,8 +18,8 @@ import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.syzygyhub.ui.android.tokens.Colors.danger
-import com.syzygyhub.ui.android.tokens.Colors.onDanger
+import com.syzygyhub.ui.android.tokens.Colors.destructive
+import com.syzygyhub.ui.android.tokens.Colors.onDestructive
 import com.syzygyhub.ui.android.tokens.Spacing
 
 /** Where a [NetworkStatusBanner] anchors within its container. */
@@ -101,14 +101,14 @@ fun NetworkStatusBanner(
             modifier =
                 Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.danger)
+                    .background(MaterialTheme.colorScheme.destructive)
                     .padding(Spacing.sm),
             contentAlignment = Alignment.Center,
         ) {
             Text(
                 text = message,
                 style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onDanger,
+                color = MaterialTheme.colorScheme.onDestructive,
             )
         }
     }

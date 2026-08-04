@@ -2,7 +2,7 @@
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![Platform](https://img.shields.io/badge/Android-API%2029%2B-3DDC84?logo=android&logoColor=white)](https://developer.android.com)
-[![Version](https://img.shields.io/badge/Version-2.2.1-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-2.3.0-blue.svg)](CHANGELOG.md)
 [![JitPack](https://jitpack.io/v/Syzygy-Hub/syzygy-ui-android.svg)](https://jitpack.io/#Syzygy-Hub/syzygy-ui-android)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/android.yml/badge.svg)](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/android.yml)

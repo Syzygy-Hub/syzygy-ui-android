@@ -27,7 +27,7 @@ jobs:
         id: extract_version
         run: |
           MESSAGE="${{ github.event.workflow_run.head_commit.message }}"
-          VERSION=$(echo "$MESSAGE" | sed -n 's/^release: *\(v[0-9][0-9A-Za-z.\-]*\).*/\1/p')
+          VERSION=$(echo "$MESSAGE" | sed -n 's/^release: *v\?\([0-9][0-9A-Za-z.\-]*\).*/\1/p')
           if [ -z "$VERSION" ]; then
             echo "Could not extract version from commit message: $MESSAGE"
             exit 1
@@ -37,7 +37,6 @@ jobs:
       - name: Sync build.gradle.kts version
         run: |
           COMMIT_VERSION="${{ env.VERSION }}"
-          COMMIT_VERSION="${COMMIT_VERSION#v}"
           sed -i "s/versionName = \".*\"/versionName = \"$COMMIT_VERSION\"/" app/build.gradle.kts
           echo "Updated versionName to $COMMIT_VERSION"
 

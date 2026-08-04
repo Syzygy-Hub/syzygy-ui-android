@@ -5,6 +5,17 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-08-05
+
+### Changed (Breaking)
+- **Color token vocabulary alignment** — `Colors` extension object updated to canonical token set:
+  - `danger` / `onDanger` removed; use `destructive` / `onDestructive` instead (delegates to M3's `error` / `onError`)
+  - `ConfirmDialog`, `NetworkStatusBanner` updated to use new names
+- **New tokens added**: `primarySubtle`, `errorMuted`, `textDisabled`, `textInverse` (all derived from existing M3 `ColorScheme` values; no hard-coded hex)
+
+### Fixed
+- CI `release.yml`: extraction regex now strips optional leading `v` (`v?`) so bare-version commit messages (`release: 2.3.0`) work correctly; removed redundant `COMMIT_VERSION="${COMMIT_VERSION#v}"` in Sync step
+
 ## [2.2.1] - 2026-08-04
 
 ### Added
