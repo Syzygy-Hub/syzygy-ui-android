@@ -64,7 +64,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.Syzygy-Hub"
                 artifactId = "syzygy-ui-android"
-                version = "2.2.1"
+                version = "2.4.0"
             }
         }
     }

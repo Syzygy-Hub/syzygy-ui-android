@@ -29,7 +29,8 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 private val MinTouchTarget = 48.dp
 
@@ -39,8 +40,10 @@ fun CollapsibleView(
     title: String,
     modifier: Modifier = Modifier,
     initiallyExpanded: Boolean = false,
+    theme: SyzygyTheme? = null,
     content: @Composable () -> Unit,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     var isExpanded by remember { mutableStateOf(initiallyExpanded) }
     val rotation by animateFloatAsState(
         targetValue = if (isExpanded) 180f else 0f,
@@ -54,7 +57,7 @@ fun CollapsibleView(
                     .fillMaxWidth()
                     .defaultMinSize(minHeight = MinTouchTarget)
                     .clickable { isExpanded = !isExpanded }
-                    .padding(horizontal = Spacing.md)
+                    .padding(horizontal = theme.spacing.md)
                     .semantics { contentDescription = "$title, ${if (isExpanded) "expanded" else "collapsed"}" },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
@@ -71,7 +74,7 @@ fun CollapsibleView(
             enter = expandVertically() + fadeIn(),
             exit = shrinkVertically() + fadeOut(),
         ) {
-            Column(modifier = Modifier.padding(horizontal = Spacing.md, vertical = Spacing.sm)) {
+            Column(modifier = Modifier.padding(horizontal = theme.spacing.md, vertical = theme.spacing.sm)) {
                 content()
             }
         }

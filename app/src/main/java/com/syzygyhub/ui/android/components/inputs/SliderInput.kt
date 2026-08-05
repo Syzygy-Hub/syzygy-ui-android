@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /**
  * A labeled slider with a live value readout, wrapping the native Material 3
@@ -25,7 +27,9 @@ fun SliderInput(
     modifier: Modifier = Modifier,
     valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
     steps: Int = 0,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Column(modifier = modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier.fillMaxWidth(),

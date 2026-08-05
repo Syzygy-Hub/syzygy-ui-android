@@ -26,6 +26,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import com.syzygyhub.ui.android.components.feedback.ShimmerView
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -227,7 +229,9 @@ fun LazyImageView(
     url: String?,
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     val context = LocalContext.current
     var state by remember(url) { mutableStateOf<ImageLoadState>(ImageLoadState.Loading) }
 

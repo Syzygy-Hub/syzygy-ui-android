@@ -29,7 +29,8 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 private val MinTouchTarget = 48.dp
 
@@ -53,7 +54,9 @@ fun Accordion(
     modifier: Modifier = Modifier,
     allowsMultipleOpen: Boolean = false,
     initiallyOpenIndices: Set<Int> = emptySet(),
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     var openIndices by remember { mutableStateOf(initiallyOpenIndices) }
 
     Column(modifier = modifier) {
@@ -76,7 +79,7 @@ fun Accordion(
                                     allowsMultipleOpen -> openIndices + index
                                     else -> setOf(index)
                                 }
-                        }.padding(horizontal = Spacing.md)
+                        }.padding(horizontal = theme.spacing.md)
                         .semantics {
                             contentDescription = "${section.title}, ${if (isExpanded) "expanded" else "collapsed"}"
                         },
@@ -95,7 +98,7 @@ fun Accordion(
                 enter = expandVertically() + fadeIn(),
                 exit = shrinkVertically() + fadeOut(),
             ) {
-                Column(modifier = Modifier.padding(horizontal = Spacing.md, vertical = Spacing.sm)) {
+                Column(modifier = Modifier.padding(horizontal = theme.spacing.md, vertical = theme.spacing.sm)) {
                     section.content()
                 }
             }

@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import com.syzygyhub.ui.android.tokens.Radius
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 enum class ToastVariant { SUCCESS, WARNING, ERROR }
 
@@ -21,7 +21,9 @@ fun ToastView(
     message: String,
     variant: ToastVariant,
     modifier: Modifier = Modifier,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     val (containerColor, contentColor) =
         when (variant) {
             ToastVariant.SUCCESS -> Color(0xFF2E7D32) to Color.White
@@ -36,8 +38,8 @@ fun ToastView(
         modifier =
             modifier
                 .fillMaxWidth()
-                .background(color = containerColor, shape = RoundedCornerShape(Radius.md))
-                .padding(Spacing.md)
+                .background(color = containerColor, shape = RoundedCornerShape(theme.radius.md))
+                .padding(theme.spacing.md)
                 .semantics { contentDescription = "${variant.name.lowercase()} toast: $message" },
     )
 }

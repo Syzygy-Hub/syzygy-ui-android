@@ -16,7 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /**
  * A floating pill-style bar showing both icon AND label per item — distinct from
@@ -30,14 +31,16 @@ fun <T> FloatingTabBar(
     selection: T,
     onSelectionChange: (T) -> Unit,
     modifier: Modifier = Modifier,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Surface(
         modifier = modifier,
         shape = CircleShape,
         tonalElevation = 4.dp,
         shadowElevation = 4.dp,
     ) {
-        Row(modifier = Modifier.padding(horizontal = Spacing.sm, vertical = Spacing.xs)) {
+        Row(modifier = Modifier.padding(horizontal = theme.spacing.sm, vertical = theme.spacing.xs)) {
             items.forEach { item ->
                 val selected = item.tag == selection
                 Column(
@@ -46,7 +49,7 @@ fun <T> FloatingTabBar(
                             .clip(CircleShape)
                             .background(if (selected) MaterialTheme.colorScheme.primary else Color.Transparent)
                             .clickable { onSelectionChange(item.tag) }
-                            .padding(horizontal = Spacing.md, vertical = Spacing.xs),
+                            .padding(horizontal = theme.spacing.md, vertical = theme.spacing.xs),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Icon(

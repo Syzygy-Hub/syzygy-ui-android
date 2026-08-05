@@ -14,7 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /**
  * A floating, icon-only bottom navigation pill — a visual alternative to
@@ -26,14 +27,16 @@ fun <T> BottomNavigationBar(
     selection: T,
     onSelectionChange: (T) -> Unit,
     modifier: Modifier = Modifier,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Surface(
         modifier = modifier,
         shape = CircleShape,
         tonalElevation = 4.dp,
         shadowElevation = 4.dp,
     ) {
-        Row(modifier = Modifier.padding(horizontal = Spacing.sm, vertical = Spacing.xs)) {
+        Row(modifier = Modifier.padding(horizontal = theme.spacing.sm, vertical = theme.spacing.xs)) {
             items.forEach { item ->
                 val selected = item.tag == selection
                 IconButton(

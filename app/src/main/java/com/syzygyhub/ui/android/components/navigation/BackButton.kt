@@ -8,6 +8,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 private val MinTouchTarget = 48.dp
 
@@ -16,7 +18,9 @@ fun BackButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     contentDescription: String = "Navigate back",
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     IconButton(
         onClick = onClick,
         modifier = modifier.size(MinTouchTarget),

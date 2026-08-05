@@ -17,7 +17,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.syzygyhub.ui.android.components.buttons.PrimaryButton
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /**
  * An icon, title, subtitle, and retry action for error states. Mirrors
@@ -32,14 +33,16 @@ fun ErrorStateView(
     modifier: Modifier = Modifier,
     icon: ImageVector = Icons.Filled.ErrorOutline,
     retryLabel: String = "Retry",
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Column(
         modifier =
             modifier
                 .fillMaxWidth()
-                .padding(Spacing.lg),
+                .padding(theme.spacing.lg),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(Spacing.sm),
+        verticalArrangement = Arrangement.spacedBy(theme.spacing.sm),
     ) {
         Icon(
             imageVector = icon,
@@ -52,7 +55,7 @@ fun ErrorStateView(
         PrimaryButton(
             text = retryLabel,
             onClick = onRetryClick,
-            modifier = Modifier.padding(top = Spacing.sm),
+            modifier = Modifier.padding(top = theme.spacing.sm),
         )
     }
 }

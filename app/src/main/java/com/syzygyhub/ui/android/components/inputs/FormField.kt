@@ -7,8 +7,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 import com.syzygyhub.ui.android.tokens.AppTypography.caption
-import com.syzygyhub.ui.android.tokens.Spacing
 
 /**
  * A generic label + content-slot wrapper for form fields, with optional
@@ -21,11 +22,13 @@ fun FormField(
     modifier: Modifier = Modifier,
     error: String? = null,
     helperText: String? = null,
+    theme: SyzygyTheme? = null,
     content: @Composable () -> Unit,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Column(modifier = modifier) {
         Text(text = label, style = MaterialTheme.typography.labelMedium)
-        Spacer(modifier = Modifier.height(Spacing.xs))
+        Spacer(modifier = Modifier.height(theme.spacing.xs))
         content()
         val message = error ?: helperText
         if (message != null) {

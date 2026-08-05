@@ -11,8 +11,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.syzygyhub.ui.android.components.overlay.ModalDialog
-import com.syzygyhub.ui.android.tokens.Colors.destructive
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
+import com.syzygyhub.ui.android.tokens.Colors
 
 /**
  * A preset confirm/cancel modal built on top of [ModalDialog] rather than
@@ -30,17 +31,19 @@ fun ConfirmDialog(
     confirmLabel: String = "Confirm",
     cancelLabel: String = "Cancel",
     isDestructive: Boolean = false,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     ModalDialog(onDismissRequest = onCancel) {
         Text(
             text = title,
             style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(bottom = Spacing.sm)
+            modifier = Modifier.padding(bottom = theme.spacing.sm)
         )
         Text(
             text = message,
             style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(bottom = Spacing.lg)
+            modifier = Modifier.padding(bottom = theme.spacing.lg)
         )
         Row(
             modifier = modifier.fillMaxWidth(),
@@ -53,7 +56,9 @@ fun ConfirmDialog(
                 onClick = onConfirm,
                 colors =
                     if (isDestructive) {
-                        ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.destructive)
+                        with(Colors) {
+                            ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.destructive)
+                        }
                     } else {
                         ButtonDefaults.textButtonColors()
                     },

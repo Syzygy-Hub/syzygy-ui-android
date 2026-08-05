@@ -15,6 +15,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
@@ -28,19 +32,23 @@ fun DatePickerField(
     date: LocalDate?,
     onDateChange: (LocalDate) -> Unit,
     modifier: Modifier = Modifier,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     var isOpen by remember { mutableStateOf(false) }
     val formatter = remember { DateTimeFormatter.ISO_LOCAL_DATE }
+    val selectedDateText = date?.format(formatter) ?: ""
 
     OutlinedTextField(
-        value = date?.format(formatter) ?: "",
+        value = selectedDateText,
         onValueChange = {},
         readOnly = true,
         label = { Text(label) },
         modifier =
             modifier
                 .fillMaxWidth()
-                .clickable { isOpen = true },
+                .clickable { isOpen = true }
+                .semantics { contentDescription = "Date picker: $selectedDateText" },
         enabled = false,
         singleLine = true,
         maxLines = 1,

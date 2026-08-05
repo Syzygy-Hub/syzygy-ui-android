@@ -1,9 +1,12 @@
 package com.syzygyhub.ui.android
 
 import androidx.compose.material3.Text
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import com.syzygyhub.ui.android.components.buttons.PrimaryButton
 import com.syzygyhub.ui.android.components.display.Accordion
 import com.syzygyhub.ui.android.components.display.AccordionSection
@@ -16,6 +19,10 @@ import com.syzygyhub.ui.android.components.inputs.TextInput
 import com.syzygyhub.ui.android.components.navigation.StepIndicator
 import com.syzygyhub.ui.android.components.overlay.BottomSheet
 import com.syzygyhub.ui.android.components.overlay.ModalDialog
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyThemeProvider
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 
@@ -142,5 +149,75 @@ class ComposeComponentSmokeTest {
         // StepIndicator renders circles/dots — no text nodes, so we just
         // assert the composable inflates without throwing.
         composeTestRule.waitForIdle()
+    }
+
+    // ── Theme tests ─────────────────────────────────────────────────────────
+
+    @Test
+    fun syzygyTheme_default_primaryColor() {
+        assertEquals(Color(0xFF2563EB), SyzygyTheme.default.colors.primary)
+    }
+
+    @Test
+    fun syzygyTheme_dark_hasBlackBackground() {
+        assertEquals(Color(0xFF000000), SyzygyTheme.dark.colors.background)
+    }
+
+    @Test
+    fun syzygyTheme_highContrast_hasPureBlackTextPrimary() {
+        assertEquals(Color(0xFF000000), SyzygyTheme.highContrast.colors.textPrimary)
+    }
+
+    @Test
+    fun syzygyThemeProvider_providesThemeViaLocal() {
+        var capturedPrimary: Color? = null
+        composeTestRule.setContent {
+            SyzygyThemeProvider(theme = SyzygyTheme.dark) {
+                capturedPrimary = LocalSyzygyTheme.current.colors.primary
+                Text("ok")
+            }
+        }
+        composeTestRule.onNodeWithText("ok").assertIsDisplayed()
+        assertEquals(SyzygyTheme.dark.colors.primary, capturedPrimary)
+    }
+
+    @Test
+    fun primaryButton_themeDarkOverride_usesProvidedTheme() {
+        var capturedRadius = 0.dp
+        composeTestRule.setContent {
+            SyzygyThemeProvider(theme = SyzygyTheme.dark) {
+                capturedRadius = LocalSyzygyTheme.current.radius.md
+                PrimaryButton(text = "Dark", onClick = {})
+            }
+        }
+        composeTestRule.onNodeWithText("Dark").assertIsDisplayed()
+        assertEquals(8.dp, capturedRadius)
+    }
+
+    @Test
+    fun syzygyRadius_default_mdEquals8dp() {
+        assertEquals(8.dp, SyzygyTheme.default.radius.md)
+    }
+
+    @Test
+    fun syzygySpacing_default_mdEquals16dp() {
+        assertEquals(16.dp, SyzygyTheme.default.spacing.md)
+    }
+
+    @Test
+    fun syzygyElevation_default_smEquals1dp() {
+        assertEquals(1.dp, SyzygyTheme.default.elevation.sm)
+    }
+
+    @Test
+    fun syzygyTypography_highContrast_largeTitleHasFontWeightBlack() {
+        assertEquals(FontWeight.Black, SyzygyTheme.highContrast.typography.largeTitle.fontWeight)
+    }
+
+    @Test
+    fun syzygyTheme_copyProducesModifiedTheme() {
+        val modified = SyzygyTheme.default.copy(colors = SyzygyTheme.dark.colors)
+        assertEquals(SyzygyTheme.dark.colors.background, modified.colors.background)
+        assertEquals(SyzygyTheme.default.radius, modified.radius)
     }
 }

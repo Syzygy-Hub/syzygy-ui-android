@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 private val MinTouchTarget = 48.dp
 
@@ -25,7 +27,9 @@ fun QuantityStepper(
     modifier: Modifier = Modifier,
     range: IntRange = 0..99,
     step: Int = 1,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Row(
         modifier = modifier.semantics { contentDescription = "Quantity: $value" },
         verticalAlignment = Alignment.CenterVertically,

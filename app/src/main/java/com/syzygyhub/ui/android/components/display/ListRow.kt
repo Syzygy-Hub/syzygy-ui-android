@@ -17,7 +17,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 private val MinTouchTarget = 48.dp
 
@@ -31,16 +32,18 @@ fun ListRow(
     icon: ImageVector? = null,
     onClick: (() -> Unit)? = null,
     trailing: (@Composable () -> Unit)? = null,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Row(
         modifier =
             modifier
                 .fillMaxWidth()
                 .defaultMinSize(minHeight = MinTouchTarget)
                 .let { if (onClick != null) it.clickable(onClick = onClick) else it }
-                .padding(horizontal = Spacing.md, vertical = Spacing.sm)
+                .padding(horizontal = theme.spacing.md, vertical = theme.spacing.sm)
                 .semantics { contentDescription = subtitle?.let { "$title, $it" } ?: title },
-        horizontalArrangement = Arrangement.spacedBy(Spacing.sm),
+        horizontalArrangement = Arrangement.spacedBy(theme.spacing.sm),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         if (icon != null) {

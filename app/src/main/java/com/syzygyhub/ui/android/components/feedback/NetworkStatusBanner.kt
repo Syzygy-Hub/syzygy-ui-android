@@ -18,9 +18,9 @@ import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.syzygyhub.ui.android.tokens.Colors.destructive
-import com.syzygyhub.ui.android.tokens.Colors.onDestructive
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
+import com.syzygyhub.ui.android.tokens.Colors
 
 /** Where a [NetworkStatusBanner] anchors within its container. */
 enum class NetworkBannerAlignment { TOP, BOTTOM }
@@ -87,7 +87,9 @@ fun NetworkStatusBanner(
     alignment: NetworkBannerAlignment = NetworkBannerAlignment.TOP,
     manualOverride: Boolean? = null,
     message: String = "No internet connection",
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     val isOnline = rememberIsOnline()
     val isVisible = manualOverride?.let { !it } ?: !isOnline
 
@@ -97,19 +99,21 @@ fun NetworkStatusBanner(
         exit = slideOutVertically { if (alignment == NetworkBannerAlignment.TOP) -it else it },
         modifier = modifier,
     ) {
-        Box(
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.destructive)
-                    .padding(Spacing.sm),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(
-                text = message,
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onDestructive,
-            )
+        with(Colors) {
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.destructive)
+                        .padding(theme.spacing.sm),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    text = message,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onDestructive,
+                )
+            }
         }
     }
 }

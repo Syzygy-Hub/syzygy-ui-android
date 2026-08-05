@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.syzygyhub.ui.android.tokens.Radius
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 import kotlinx.coroutines.delay
 
 /**
@@ -29,7 +29,9 @@ fun AppSnackbar(
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
     durationMillis: Long = 4000,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     LaunchedEffect(isVisible) {
         if (isVisible) {
             delay(durationMillis)
@@ -40,12 +42,12 @@ fun AppSnackbar(
     if (isVisible) {
         Surface(
             modifier = modifier,
-            shape = RoundedCornerShape(Radius.md),
+            shape = RoundedCornerShape(theme.radius.md),
             color = MaterialTheme.colorScheme.inverseSurface,
             contentColor = MaterialTheme.colorScheme.inverseOnSurface,
         ) {
             Row(
-                modifier = Modifier.padding(horizontal = Spacing.md, vertical = Spacing.sm),
+                modifier = Modifier.padding(horizontal = theme.spacing.md, vertical = theme.spacing.sm),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(text = message, style = MaterialTheme.typography.bodyMedium)

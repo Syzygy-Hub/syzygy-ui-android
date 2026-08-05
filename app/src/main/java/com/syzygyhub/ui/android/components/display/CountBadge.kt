@@ -14,7 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /**
  * A small numeric/dot badge meant to overlay an icon (e.g. a bell with an
@@ -26,7 +27,9 @@ fun CountBadge(
     modifier: Modifier = Modifier,
     count: Int? = null,
     maxDisplayCount: Int = 99,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     if (count != null && count > 0) {
         val display = if (count > maxDisplayCount) "$maxDisplayCount+" else "$count"
         Box(
@@ -34,7 +37,7 @@ fun CountBadge(
                 modifier
                     .defaultMinSize(minWidth = 16.dp, minHeight = 16.dp)
                     .background(MaterialTheme.colorScheme.error, CircleShape)
-                    .padding(horizontal = Spacing.xs)
+                    .padding(horizontal = theme.spacing.xs)
                     .semantics { contentDescription = "$count unread" },
             contentAlignment = Alignment.Center,
         ) {

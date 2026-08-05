@@ -20,8 +20,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.syzygyhub.ui.android.tokens.Radius
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /** The outline shape a [ColorSwatch] renders as. */
 enum class ColorSwatchShape { CIRCLE, SQUARE }
@@ -41,8 +41,10 @@ fun ColorSwatch(
     shape: ColorSwatchShape = ColorSwatchShape.CIRCLE,
     isSelected: Boolean = false,
     size: Dp = 32.dp,
+    theme: SyzygyTheme? = null,
 ) {
-    val clipShape: Shape = if (shape == ColorSwatchShape.CIRCLE) CircleShape else RoundedCornerShape(Radius.sm)
+    val theme = theme ?: LocalSyzygyTheme.current
+    val clipShape: Shape = if (shape == ColorSwatchShape.CIRCLE) CircleShape else RoundedCornerShape(theme.radius.sm)
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -66,7 +68,7 @@ fun ColorSwatch(
             Text(
                 text = label,
                 style = MaterialTheme.typography.labelSmall,
-                modifier = Modifier.padding(top = Spacing.xxs),
+                modifier = Modifier.padding(top = theme.spacing.xxs),
             )
         }
     }

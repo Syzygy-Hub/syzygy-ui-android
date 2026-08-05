@@ -16,6 +16,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /**
  * A [Dropdown] variant with an inline search field that filters the visible
@@ -37,7 +39,9 @@ fun <T> SearchableDropdown(
     optionTitle: (T) -> String,
     modifier: Modifier = Modifier,
     placeholder: String = "Search…",
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     var expanded by remember { mutableStateOf(false) }
     var query by remember { mutableStateOf("") }
     val filteredOptions =

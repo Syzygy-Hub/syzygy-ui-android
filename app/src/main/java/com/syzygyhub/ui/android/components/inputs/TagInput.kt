@@ -17,7 +17,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import com.syzygyhub.ui.android.components.display.Chip
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /** A text input that renders entered [tags] as dismissible [Chip]s. */
 @Composable
@@ -26,15 +27,17 @@ fun TagInput(
     onTagsChange: (List<String>) -> Unit,
     modifier: Modifier = Modifier,
     label: String = "Add tag",
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     var draft by remember { mutableStateOf("") }
 
     Column(modifier = modifier) {
         if (tags.isNotEmpty()) {
             FlowRow(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
-                verticalArrangement = Arrangement.spacedBy(Spacing.xs),
+                horizontalArrangement = Arrangement.spacedBy(theme.spacing.xs),
+                verticalArrangement = Arrangement.spacedBy(theme.spacing.xs),
             ) {
                 tags.forEach { tag ->
                     Chip(text = tag, onRemove = { onTagsChange(tags - tag) })
@@ -48,7 +51,7 @@ fun TagInput(
             modifier =
                 Modifier
                     .fillMaxWidth()
-                    .padding(top = Spacing.sm),
+                    .padding(top = theme.spacing.sm),
             singleLine = true,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             keyboardActions =

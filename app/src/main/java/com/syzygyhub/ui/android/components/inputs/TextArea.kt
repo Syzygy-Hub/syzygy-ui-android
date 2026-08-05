@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /** A multi-line text input, matching [TextInput]'s visual conventions. */
 @Composable
@@ -19,7 +21,9 @@ fun TextArea(
     enabled: Boolean = true,
     minLines: Int = 3,
     maxLines: Int = 6,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,

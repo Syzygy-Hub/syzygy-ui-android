@@ -15,7 +15,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.syzygyhub.ui.android.components.buttons.PrimaryButton
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 @Composable
 fun EmptyStateView(
@@ -25,14 +26,16 @@ fun EmptyStateView(
     modifier: Modifier = Modifier,
     ctaLabel: String? = null,
     onCtaClick: (() -> Unit)? = null,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Column(
         modifier =
             modifier
                 .fillMaxWidth()
-                .padding(Spacing.lg),
+                .padding(theme.spacing.lg),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(Spacing.sm),
+        verticalArrangement = Arrangement.spacedBy(theme.spacing.sm),
     ) {
         Icon(
             imageVector = icon,
@@ -53,7 +56,7 @@ fun EmptyStateView(
             PrimaryButton(
                 text = ctaLabel,
                 onClick = onCtaClick,
-                modifier = Modifier.padding(top = Spacing.sm),
+                modifier = Modifier.padding(top = theme.spacing.sm),
             )
         }
     }

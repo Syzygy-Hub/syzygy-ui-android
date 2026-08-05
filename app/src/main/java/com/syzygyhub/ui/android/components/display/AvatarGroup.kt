@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /** An overlapping stack of [Avatar]s, showing up to [max] with a "+N" overflow badge. */
 @Composable
@@ -20,7 +22,9 @@ fun AvatarGroup(
     modifier: Modifier = Modifier,
     max: Int = 4,
     size: AvatarSize = AvatarSize.MEDIUM,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     val visible = avatars.take(max)
     val overflow = avatars.size - visible.size
     val overlap = size.dimension / 3

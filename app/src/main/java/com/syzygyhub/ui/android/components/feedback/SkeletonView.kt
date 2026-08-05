@@ -20,6 +20,8 @@ import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.semantics.hideFromAccessibility
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 import com.syzygyhub.ui.android.tokens.Radius
 
 enum class SkeletonShape { RECTANGLE, CIRCLE }
@@ -36,7 +38,9 @@ fun SkeletonView(
     modifier: Modifier = Modifier,
     shape: SkeletonShape = SkeletonShape.RECTANGLE,
     cornerRadius: Dp = Radius.sm,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     val transition = rememberInfiniteTransition(label = "skeleton")
     val alpha by transition.animateFloat(
         initialValue = 0.3f,

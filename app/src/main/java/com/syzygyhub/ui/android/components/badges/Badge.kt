@@ -10,8 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import com.syzygyhub.ui.android.tokens.Radius
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 enum class BadgeVariant { PRIMARY, SUCCESS, WARNING, ERROR }
 
@@ -20,7 +20,9 @@ fun Badge(
     text: String,
     variant: BadgeVariant,
     modifier: Modifier = Modifier,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     val (containerColor, contentColor) =
         when (variant) {
             BadgeVariant.PRIMARY -> MaterialTheme.colorScheme.primary to MaterialTheme.colorScheme.onPrimary
@@ -35,8 +37,8 @@ fun Badge(
         style = MaterialTheme.typography.labelMedium,
         modifier =
             modifier
-                .background(color = containerColor, shape = RoundedCornerShape(Radius.full))
-                .padding(horizontal = Spacing.sm, vertical = Spacing.xs)
+                .background(color = containerColor, shape = RoundedCornerShape(theme.radius.full))
+                .padding(horizontal = theme.spacing.sm, vertical = theme.spacing.xs)
                 .semantics { contentDescription = "${variant.name.lowercase()} badge: $text" },
     )
 }

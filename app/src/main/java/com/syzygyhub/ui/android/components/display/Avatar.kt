@@ -14,6 +14,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 enum class AvatarSize(val dimension: Dp) {
     SMALL(32.dp),
@@ -27,7 +29,9 @@ fun Avatar(
     initials: String,
     modifier: Modifier = Modifier,
     size: AvatarSize = AvatarSize.MEDIUM,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Box(
         modifier =
             modifier

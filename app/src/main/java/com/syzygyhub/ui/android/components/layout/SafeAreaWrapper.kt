@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /** Which edges of [WindowInsets.safeDrawing] a [SafeAreaWrapper] should respect. */
 enum class SafeAreaEdge { TOP, BOTTOM, START, END }
@@ -31,8 +33,10 @@ private val AllSafeAreaEdges = setOf(SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM, Safe
 fun SafeAreaWrapper(
     modifier: Modifier = Modifier,
     edges: Set<SafeAreaEdge> = AllSafeAreaEdges,
+    theme: SyzygyTheme? = null,
     content: @Composable () -> Unit,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     val sides = edges.toWindowInsetsSides()
     val boxModifier =
         if (sides != null) {

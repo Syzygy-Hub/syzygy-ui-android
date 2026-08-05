@@ -12,21 +12,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 @Composable
 fun LoadingView(
     modifier: Modifier = Modifier,
     message: String? = null,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Column(
         modifier =
             modifier
                 .fillMaxWidth()
-                .padding(Spacing.lg)
+                .padding(theme.spacing.lg)
                 .semantics { contentDescription = message ?: "Loading" },
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(Spacing.md),
+        verticalArrangement = Arrangement.spacedBy(theme.spacing.md),
     ) {
         CircularProgressIndicator()
         if (message != null) {

@@ -5,6 +5,20 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-08-05
+
+### Added
+- SyzygyTheme, SyzygyThemeProvider, LocalSyzygyTheme CompositionLocal, runtime theme switching
+- 3 built-in themes: default, dark, highContrast
+- Component-level theme override parameter on all @Composable components
+
+### Changed
+- All components now read visual tokens from LocalSyzygyTheme.current
+
+### Fixed
+- CI release.yml sed pattern: versionName → version to match build.gradle.kts field name
+- Accessibility: ButtonGroup, ToggleSwitch, CheckboxInput, RadioButtonInput, DatePickerField, TimePicker
+
 ## [2.3.0] - 2026-08-05
 
 ### Changed (Breaking)

@@ -16,6 +16,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /** A labeled dropdown / picker, selecting from a fixed list of options. */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,7 +29,9 @@ fun <T> Dropdown(
     onSelectionChange: (T) -> Unit,
     optionTitle: (T) -> String,
     modifier: Modifier = Modifier,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     var expanded by remember { mutableStateOf(false) }
 
     ExposedDropdownMenuBox(

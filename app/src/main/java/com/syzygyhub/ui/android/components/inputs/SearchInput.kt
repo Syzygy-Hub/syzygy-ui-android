@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 import kotlinx.coroutines.delay
 
 private val MinTouchTarget = 48.dp
@@ -33,7 +35,9 @@ fun SearchInput(
     placeholder: String = "Search",
     debounceMillis: Long = 300L,
     onSearchTextChanged: ((String) -> Unit)? = null,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     if (onSearchTextChanged != null) {
         LaunchedEffect(value) {
             delay(debounceMillis)

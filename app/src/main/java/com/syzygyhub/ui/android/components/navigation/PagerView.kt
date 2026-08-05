@@ -5,6 +5,8 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /**
  * Swipeable, paged content — e.g. onboarding screens or an image carousel.
@@ -16,7 +18,9 @@ fun PagerView(
     state: PagerState,
     modifier: Modifier = Modifier,
     pageContent: @Composable (page: Int) -> Unit,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     HorizontalPager(
         state = state,
         modifier = modifier.fillMaxSize(),

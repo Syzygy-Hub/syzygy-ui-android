@@ -8,15 +8,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.syzygyhub.ui.android.tokens.Colors.separator
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
+import com.syzygyhub.ui.android.tokens.Colors
 
 /** A horizontal trail of tappable navigation labels, separated by a "/" glyph. */
 @Composable
 fun Breadcrumbs(
     items: List<Pair<String, () -> Unit>>,
     modifier: Modifier = Modifier,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
         items.forEachIndexed { index, (label, onClick) ->
             Text(
@@ -34,8 +37,8 @@ fun Breadcrumbs(
                 Text(
                     text = " / ",
                     style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.separator,
-                    modifier = Modifier.padding(horizontal = Spacing.xxs),
+                    color = with(Colors) { MaterialTheme.colorScheme.separator },
+                    modifier = Modifier.padding(horizontal = theme.spacing.xxs),
                 )
             }
         }

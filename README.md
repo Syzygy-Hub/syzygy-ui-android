@@ -2,7 +2,7 @@
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![Platform](https://img.shields.io/badge/Android-API%2029%2B-3DDC84?logo=android&logoColor=white)](https://developer.android.com)
-[![Version](https://img.shields.io/badge/Version-2.3.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-2.4.0-blue.svg)](CHANGELOG.md)
 [![JitPack](https://jitpack.io/v/Syzygy-Hub/syzygy-ui-android.svg)](https://jitpack.io/#Syzygy-Hub/syzygy-ui-android)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/android.yml/badge.svg)](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/android.yml)
@@ -188,6 +188,60 @@ SyzygyUiTheme {
 ```
 
 See the [Components](#components) list above for everything else available.
+
+## Theming
+
+syzygy-ui-android v2.4.0 ships a runtime theme system built on Compose's `CompositionLocal`.
+
+### Providing a theme
+
+Wrap your UI in `SyzygyThemeProvider` to inject a `SyzygyTheme` into the composition:
+
+```kotlin
+import com.syzygyhub.ui.android.theme.SyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyThemeProvider
+
+SyzygyThemeProvider(theme = SyzygyTheme.dark) {
+    PrimaryButton(text = "Hello", onClick = {})
+}
+```
+
+### Reading the theme
+
+Inside any composable, read the current theme via the `LocalSyzygyTheme` composition local or the convenience function:
+
+```kotlin
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.syzygyTheme
+
+// Option A — direct access
+val theme = LocalSyzygyTheme.current
+
+// Option B — convenience accessor
+val theme = syzygyTheme()
+```
+
+### Built-in themes
+
+| Name | Description |
+|------|-------------|
+| `SyzygyTheme.default` | Light theme, standard radius and typography |
+| `SyzygyTheme.dark` | Dark color palette, same radius and typography as default |
+| `SyzygyTheme.highContrast` | High-contrast colors, sharp corners, heavier font weights |
+
+### Component-level override
+
+Every public `@Composable` in this library accepts an optional `theme: SyzygyTheme? = null` parameter. Pass a theme to override just that component without affecting the rest of the tree:
+
+```kotlin
+PrimaryButton(
+    text = "Destructive action",
+    onClick = {},
+    theme = SyzygyTheme.highContrast,
+)
+```
+
+When `theme` is `null` (the default), the component reads from `LocalSyzygyTheme.current`.
 
 ## Contributing & Releases
 

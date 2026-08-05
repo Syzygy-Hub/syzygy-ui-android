@@ -23,6 +23,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /** A single selectable country/dial-code entry for [PhoneInput]. */
 data class PhoneCountry(
@@ -75,7 +77,9 @@ fun PhoneInput(
     label: String = "Phone number",
     countries: List<PhoneCountry> = DefaultPhoneCountries,
     onFormattedChange: ((String) -> Unit)? = null,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     var expanded by remember { mutableStateOf(false) }
 
     Row(modifier = modifier.fillMaxWidth()) {

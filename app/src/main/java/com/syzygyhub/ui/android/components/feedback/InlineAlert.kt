@@ -18,12 +18,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import com.syzygyhub.ui.android.tokens.Colors.destructiveMuted
-import com.syzygyhub.ui.android.tokens.Colors.primaryMuted
-import com.syzygyhub.ui.android.tokens.Colors.successMuted
-import com.syzygyhub.ui.android.tokens.Colors.warningMuted
-import com.syzygyhub.ui.android.tokens.Radius
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
+import com.syzygyhub.ui.android.tokens.Colors
 
 enum class InlineAlertVariant { INFO, SUCCESS, WARNING, ERROR }
 
@@ -33,25 +30,29 @@ fun InlineAlert(
     message: String,
     variant: InlineAlertVariant,
     modifier: Modifier = Modifier,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     val (background, icon) =
-        when (variant) {
-            InlineAlertVariant.INFO -> MaterialTheme.colorScheme.primaryMuted to Icons.Filled.Info
-            InlineAlertVariant.SUCCESS -> MaterialTheme.colorScheme.successMuted to Icons.Filled.CheckCircle
-            InlineAlertVariant.WARNING -> MaterialTheme.colorScheme.warningMuted to Icons.Filled.Warning
-            InlineAlertVariant.ERROR -> MaterialTheme.colorScheme.destructiveMuted to Icons.Filled.Error
+        with(Colors) {
+            when (variant) {
+                InlineAlertVariant.INFO -> MaterialTheme.colorScheme.primaryMuted to Icons.Filled.Info
+                InlineAlertVariant.SUCCESS -> MaterialTheme.colorScheme.successMuted to Icons.Filled.CheckCircle
+                InlineAlertVariant.WARNING -> MaterialTheme.colorScheme.warningMuted to Icons.Filled.Warning
+                InlineAlertVariant.ERROR -> MaterialTheme.colorScheme.destructiveMuted to Icons.Filled.Error
+            }
         }
 
     Row(
         modifier =
             modifier
-                .clip(RoundedCornerShape(Radius.md))
+                .clip(RoundedCornerShape(theme.radius.md))
                 .background(background)
-                .padding(Spacing.md),
+                .padding(theme.spacing.md),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(imageVector = icon, contentDescription = variant.name)
-        Spacer(modifier = Modifier.width(Spacing.sm))
+        Spacer(modifier = Modifier.width(theme.spacing.sm))
         Text(text = message, style = MaterialTheme.typography.bodyMedium)
     }
 }

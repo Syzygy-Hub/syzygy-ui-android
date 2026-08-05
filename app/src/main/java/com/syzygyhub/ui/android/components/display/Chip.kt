@@ -17,7 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /** A compact tag/chip with an optional trailing remove button. */
 @Composable
@@ -25,7 +26,9 @@ fun Chip(
     text: String,
     modifier: Modifier = Modifier,
     onRemove: (() -> Unit)? = null,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Row(
         modifier =
             modifier
@@ -33,7 +36,7 @@ fun Chip(
                     color = MaterialTheme.colorScheme.surfaceVariant,
                     shape = CircleShape,
                 )
-                .padding(horizontal = Spacing.sm, vertical = Spacing.xs)
+                .padding(horizontal = theme.spacing.sm, vertical = theme.spacing.xs)
                 .semantics { contentDescription = text },
         verticalAlignment = Alignment.CenterVertically,
     ) {

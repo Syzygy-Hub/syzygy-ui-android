@@ -13,9 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 import com.syzygyhub.ui.android.tokens.AppTypography.caption
-import com.syzygyhub.ui.android.tokens.Radius
-import com.syzygyhub.ui.android.tokens.Spacing
 
 enum class PasswordStrength(val label: String) {
     WEAK("Weak"),
@@ -56,7 +56,9 @@ fun computePasswordStrength(password: String): PasswordStrength {
 fun PasswordStrengthIndicator(
     password: String,
     modifier: Modifier = Modifier,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     val strength = computePasswordStrength(password)
     val filledSegments =
         when (strength) {
@@ -76,7 +78,7 @@ fun PasswordStrengthIndicator(
     Column(modifier = modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(Spacing.xs),
+            horizontalArrangement = Arrangement.spacedBy(theme.spacing.xs),
         ) {
             for (i in 0 until 4) {
                 Row(
@@ -84,7 +86,7 @@ fun PasswordStrengthIndicator(
                         Modifier
                             .weight(1f)
                             .height(4.dp)
-                            .clip(RoundedCornerShape(Radius.xs))
+                            .clip(RoundedCornerShape(theme.radius.xs))
                             .background(
                                 if (i < filledSegments) activeColor else MaterialTheme.colorScheme.surfaceVariant,
                             ),

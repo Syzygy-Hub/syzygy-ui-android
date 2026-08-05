@@ -22,7 +22,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /** Which side of a [Timeline] entry's dot/icon its content is anchored to. */
 enum class TimelineItemAlignment { LEADING, TRAILING }
@@ -52,7 +53,9 @@ fun Timeline(
     items: List<TimelineItem>,
     modifier: Modifier = Modifier,
     alignment: TimelineItemAlignment = TimelineItemAlignment.LEADING,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Column(modifier = modifier) {
         items.forEachIndexed { index, item ->
             Row(
@@ -77,7 +80,7 @@ fun Timeline(
                                         imageVector = item.icon,
                                         contentDescription = null,
                                         tint = MaterialTheme.colorScheme.onPrimary,
-                                        modifier = Modifier.size(Spacing.md),
+                                        modifier = Modifier.size(theme.spacing.md),
                                     )
                                 }
                             } else {
@@ -102,7 +105,7 @@ fun Timeline(
                     }
                 val textContent =
                     @Composable {
-                        Column(modifier = Modifier.padding(bottom = Spacing.md)) {
+                        Column(modifier = Modifier.padding(bottom = theme.spacing.md)) {
                             Text(text = item.title, style = MaterialTheme.typography.titleMedium)
                             if (item.subtitle != null) {
                                 Text(text = item.subtitle, style = MaterialTheme.typography.bodyMedium)
@@ -119,11 +122,11 @@ fun Timeline(
 
                 if (alignment == TimelineItemAlignment.LEADING) {
                     dotAndContent()
-                    Spacer(modifier = Modifier.width(Spacing.sm))
+                    Spacer(modifier = Modifier.width(theme.spacing.sm))
                     textContent()
                 } else {
                     textContent()
-                    Spacer(modifier = Modifier.width(Spacing.sm))
+                    Spacer(modifier = Modifier.width(theme.spacing.sm))
                     dotAndContent()
                 }
             }

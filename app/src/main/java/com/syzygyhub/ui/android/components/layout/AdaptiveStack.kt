@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /**
  * Arranges [content] horizontally (a [Row]) when available width is at least
@@ -15,8 +17,10 @@ import androidx.compose.ui.unit.Dp
 fun AdaptiveStack(
     breakpoint: Dp,
     modifier: Modifier = Modifier,
+    theme: SyzygyTheme? = null,
     content: @Composable () -> Unit,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     BoxWithConstraints(modifier = modifier) {
         if (maxWidth >= breakpoint) {
             Row { content() }

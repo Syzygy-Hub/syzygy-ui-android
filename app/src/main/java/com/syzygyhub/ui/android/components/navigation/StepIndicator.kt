@@ -7,12 +7,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 import com.syzygyhub.ui.android.tokens.BorderWidth
 
 /**
@@ -25,7 +26,9 @@ fun StepIndicator(
     steps: List<String>,
     currentStep: Int,
     modifier: Modifier = Modifier,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
         steps.forEachIndexed { index, _ ->
             val completed = index < currentStep
@@ -39,15 +42,15 @@ fun StepIndicator(
                         .then(
                             when {
                                 completed ->
-                                    Modifier.background(MaterialTheme.colorScheme.primary)
+                                    Modifier.background(theme.colors.primary)
                                 active ->
                                     Modifier.border(
                                         BorderWidth.thick,
-                                        MaterialTheme.colorScheme.primary,
+                                        theme.colors.primary,
                                         CircleShape,
                                     )
                                 else ->
-                                    Modifier.background(MaterialTheme.colorScheme.surfaceVariant)
+                                    Modifier.background(theme.colors.surfaceSecondary)
                             },
                         ),
             )
@@ -60,9 +63,9 @@ fun StepIndicator(
                             .height(BorderWidth.thick)
                             .background(
                                 if (completed) {
-                                    MaterialTheme.colorScheme.primary
+                                    theme.colors.primary
                                 } else {
-                                    MaterialTheme.colorScheme.surfaceVariant
+                                    theme.colors.border
                                 },
                             ),
                 )

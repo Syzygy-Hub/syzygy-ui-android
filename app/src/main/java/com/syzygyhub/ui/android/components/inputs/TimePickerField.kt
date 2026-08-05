@@ -19,9 +19,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.window.Dialog
-import com.syzygyhub.ui.android.tokens.Radius
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 import java.time.LocalTime
 
 /** A tappable field that opens Material 3's [TimePicker] in a dialog, showing the formatted [time] when closed. */
@@ -32,18 +34,22 @@ fun TimePickerField(
     time: LocalTime?,
     onTimeChange: (LocalTime) -> Unit,
     modifier: Modifier = Modifier,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     var isOpen by remember { mutableStateOf(false) }
+    val selectedTimeText = time?.let { "%02d:%02d".format(it.hour, it.minute) } ?: ""
 
     OutlinedTextField(
-        value = time?.let { "%02d:%02d".format(it.hour, it.minute) } ?: "",
+        value = selectedTimeText,
         onValueChange = {},
         readOnly = true,
         label = { Text(label) },
         modifier =
             modifier
                 .fillMaxWidth()
-                .clickable { isOpen = true },
+                .clickable { isOpen = true }
+                .semantics { contentDescription = "Time picker: $selectedTimeText" },
         enabled = false,
         singleLine = true,
     )
@@ -55,8 +61,8 @@ fun TimePickerField(
                 initialMinute = time?.minute ?: 0,
             )
         Dialog(onDismissRequest = { isOpen = false }) {
-            Surface(shape = RoundedCornerShape(Radius.lg)) {
-                Column(modifier = Modifier.padding(Spacing.md)) {
+            Surface(shape = RoundedCornerShape(theme.radius.lg)) {
+                Column(modifier = Modifier.padding(theme.spacing.md)) {
                     TimePicker(state = state)
                     Row {
                         TextButton(onClick = { isOpen = false }) { Text("Cancel") }

@@ -8,6 +8,8 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /**
  * A themed wrapper around Material 3's `ModalNavigationDrawer`/`ModalDrawerSheet`
@@ -23,8 +25,10 @@ fun SideMenu(
     onClose: () -> Unit,
     drawerContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    theme: SyzygyTheme? = null,
     content: @Composable () -> Unit,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
     LaunchedEffect(isOpen) {

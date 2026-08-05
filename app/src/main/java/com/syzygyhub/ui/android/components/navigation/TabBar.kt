@@ -6,6 +6,8 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /**
  * An edge-to-edge, icon-and-label tab bar, wrapping Material 3
@@ -18,7 +20,9 @@ fun <T> TabBar(
     selection: T,
     onSelectionChange: (T) -> Unit,
     modifier: Modifier = Modifier,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     NavigationBar(modifier = modifier) {
         items.forEach { item ->
             NavigationBarItem(

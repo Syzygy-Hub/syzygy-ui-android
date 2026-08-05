@@ -14,7 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 private val DotSize = 8.dp
 
@@ -32,7 +33,9 @@ fun PageControl(
     modifier: Modifier = Modifier,
     activeColor: Color = MaterialTheme.colorScheme.primary,
     inactiveColor: Color = MaterialTheme.colorScheme.surfaceVariant,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Row(
         modifier = modifier.semantics { contentDescription = "Page ${currentPage + 1} of $pageCount" },
     ) {
@@ -45,7 +48,7 @@ fun PageControl(
                         .background(if (index == currentPage) activeColor else inactiveColor),
             )
             if (index != pageCount - 1) {
-                Spacer(modifier = Modifier.size(Spacing.xxs))
+                Spacer(modifier = Modifier.size(theme.spacing.xxs))
             }
         }
     }

@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 import com.syzygyhub.ui.android.tokens.Spacing
 
 /**
@@ -17,8 +19,10 @@ fun FlowLayout(
     modifier: Modifier = Modifier,
     horizontalSpacing: Dp = Spacing.sm,
     verticalSpacing: Dp = Spacing.sm,
+    theme: SyzygyTheme? = null,
     content: @Composable () -> Unit,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     FlowRow(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(horizontalSpacing),

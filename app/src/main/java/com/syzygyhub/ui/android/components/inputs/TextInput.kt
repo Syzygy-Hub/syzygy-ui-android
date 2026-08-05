@@ -12,6 +12,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 import com.syzygyhub.ui.android.tokens.AppTypography.caption
 
 private val MinTouchTarget = 48.dp
@@ -26,7 +28,9 @@ fun TextInput(
     enabled: Boolean = true,
     contentDescription: String = label,
     maxLength: Int? = null,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Column(modifier = modifier) {
         OutlinedTextField(
             value = value,

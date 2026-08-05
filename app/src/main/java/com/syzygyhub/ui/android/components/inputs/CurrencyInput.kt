@@ -15,6 +15,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
 import java.util.Locale
@@ -39,7 +41,9 @@ fun CurrencyInput(
     locale: Locale = Locale.getDefault(),
     symbolPosition: CurrencySymbolPosition = CurrencySymbolPosition.PREFIX,
     enabled: Boolean = true,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     val currencyFormat = remember(locale) { NumberFormat.getCurrencyInstance(locale) }
     val symbols = remember(locale) { DecimalFormatSymbols.getInstance(locale) }
     val currencySymbol =

@@ -37,8 +37,8 @@ jobs:
       - name: Sync build.gradle.kts version
         run: |
           COMMIT_VERSION="${{ env.VERSION }}"
-          sed -i "s/versionName = \".*\"/versionName = \"$COMMIT_VERSION\"/" app/build.gradle.kts
-          echo "Updated versionName to $COMMIT_VERSION"
+          sed -i "s/version = \".*\"/version = \"$COMMIT_VERSION\"/" app/build.gradle.kts
+          echo "Updated version to $COMMIT_VERSION"
 
       - name: Delete existing tag if exists
         run: git push origin :refs/tags/${{ env.VERSION }} || true

@@ -4,6 +4,8 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /**
  * A circular progress indicator supporting both determinate ([progress] non-null,
@@ -13,7 +15,9 @@ import androidx.compose.ui.Modifier
 fun CircularProgress(
     modifier: Modifier = Modifier,
     progress: Float? = null,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     if (progress != null) {
         CircularProgressIndicator(
             progress = { progress.coerceIn(0f, 1f) },

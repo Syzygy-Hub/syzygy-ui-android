@@ -14,7 +14,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 enum class Trend { UP, DOWN, NEUTRAL }
 
@@ -29,9 +30,11 @@ fun StatsCard(
     modifier: Modifier = Modifier,
     trend: Trend? = null,
     trendValue: String? = null,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Card(modifier = modifier) {
-        Column(modifier = Modifier.padding(Spacing.md)) {
+        Column(modifier = Modifier.padding(theme.spacing.md)) {
             Text(text = label, style = MaterialTheme.typography.labelMedium)
             Text(text = value, style = MaterialTheme.typography.headlineMedium)
             if (trend != null) {
@@ -46,7 +49,7 @@ fun StatsCard(
                         imageVector = icon,
                         contentDescription = trend.name,
                         tint = color,
-                        modifier = Modifier.padding(end = Spacing.xxs),
+                        modifier = Modifier.padding(end = theme.spacing.xxs),
                     )
                     if (trendValue != null) {
                         Text(text = trendValue, style = MaterialTheme.typography.labelMedium, color = color)

@@ -10,6 +10,8 @@ import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /**
  * A tooltip shown near an anchor composable on long-press/hover. Wraps Material 3's
@@ -21,8 +23,10 @@ import androidx.compose.ui.Modifier
 fun Tooltip(
     text: String,
     modifier: Modifier = Modifier,
+    theme: SyzygyTheme? = null,
     anchor: @Composable () -> Unit,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     TooltipBox(
         positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Above),
         tooltip = { PlainTooltip { Text(text) } },

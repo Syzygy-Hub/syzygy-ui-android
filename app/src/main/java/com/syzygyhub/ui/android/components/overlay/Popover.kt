@@ -11,9 +11,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
-import com.syzygyhub.ui.android.tokens.Elevation
-import com.syzygyhub.ui.android.tokens.Radius
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /**
  * An anchored floating content bubble, typically triggered by a tap on the caller's
@@ -26,8 +25,10 @@ fun Popover(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
     offset: IntOffset = IntOffset(0, 0),
+    theme: SyzygyTheme? = null,
     content: @Composable () -> Unit,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     if (isVisible) {
         Popup(
             offset = offset,
@@ -35,13 +36,13 @@ fun Popover(
             properties = PopupProperties(focusable = true),
         ) {
             Surface(
-                modifier = modifier.clip(RoundedCornerShape(Radius.md)),
-                shape = RoundedCornerShape(Radius.md),
-                tonalElevation = Elevation.md,
-                shadowElevation = Elevation.md,
+                modifier = modifier.clip(RoundedCornerShape(theme.radius.md)),
+                shape = RoundedCornerShape(theme.radius.md),
+                tonalElevation = theme.elevation.md,
+                shadowElevation = theme.elevation.md,
                 color = MaterialTheme.colorScheme.surface,
             ) {
-                Box(modifier = Modifier.padding(Spacing.md)) {
+                Box(modifier = Modifier.padding(theme.spacing.md)) {
                     content()
                 }
             }

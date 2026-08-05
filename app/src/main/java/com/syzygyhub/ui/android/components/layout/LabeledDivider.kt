@@ -11,7 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.syzygyhub.ui.android.components.display.DividerLine
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /** Where a [LabeledDivider]'s label sits along the line. */
 enum class LabeledDividerAlignment { LEADING, CENTER, TRAILING }
@@ -28,7 +29,9 @@ fun LabeledDivider(
     label: String,
     modifier: Modifier = Modifier,
     alignment: LabeledDividerAlignment = LabeledDividerAlignment.CENTER,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -39,7 +42,7 @@ fun LabeledDivider(
                 Text(
                     text = label,
                     style = MaterialTheme.typography.labelMedium,
-                    modifier = Modifier.padding(horizontal = Spacing.sm)
+                    modifier = Modifier.padding(horizontal = theme.spacing.sm)
                 )
                 DividerLine(modifier = Modifier.weight(1f))
             }
@@ -48,7 +51,7 @@ fun LabeledDivider(
                 Text(
                     text = label,
                     style = MaterialTheme.typography.labelMedium,
-                    modifier = Modifier.padding(horizontal = Spacing.sm)
+                    modifier = Modifier.padding(horizontal = theme.spacing.sm)
                 )
                 DividerLine(modifier = Modifier.weight(1f))
             }
@@ -57,7 +60,7 @@ fun LabeledDivider(
                 Text(
                     text = label,
                     style = MaterialTheme.typography.labelMedium,
-                    modifier = Modifier.padding(horizontal = Spacing.sm)
+                    modifier = Modifier.padding(horizontal = theme.spacing.sm)
                 )
                 DividerLine(modifier = Modifier.width(LeadingLineWidth))
             }

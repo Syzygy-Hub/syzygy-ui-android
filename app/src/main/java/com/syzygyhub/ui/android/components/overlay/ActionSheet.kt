@@ -13,7 +13,8 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 data class ActionSheetAction(
     val label: String,
@@ -30,12 +31,14 @@ data class ActionSheetAction(
 fun ActionSheet(
     actions: List<ActionSheetAction>,
     onDismissRequest: () -> Unit,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
         sheetState = rememberModalBottomSheetState(),
     ) {
-        Column(modifier = Modifier.padding(bottom = Spacing.lg)) {
+        Column(modifier = Modifier.padding(bottom = theme.spacing.lg)) {
             actions.forEach { action ->
                 Text(
                     text = action.label,
@@ -54,7 +57,7 @@ fun ActionSheet(
                                 action.onClick()
                                 onDismissRequest()
                             }
-                            .padding(horizontal = Spacing.lg, vertical = Spacing.md),
+                            .padding(horizontal = theme.spacing.lg, vertical = theme.spacing.md),
                 )
             }
         }

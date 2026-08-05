@@ -8,6 +8,12 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /**
  * A horizontal segmented button row. Pass [multiSelect] to allow more than one
@@ -20,7 +26,9 @@ fun ButtonGroup(
     onSelectionChange: (List<Int>) -> Unit,
     modifier: Modifier = Modifier,
     multiSelect: Boolean = false,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     if (multiSelect) {
         MultiChoiceSegmentedButtonRow(modifier = modifier) {
             options.forEachIndexed { index, option ->
@@ -33,6 +41,11 @@ fun ButtonGroup(
                     },
                     shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
                     label = { Text(option) },
+                    modifier =
+                        Modifier.semantics {
+                            role = Role.Button
+                            contentDescription = option
+                        },
                 )
             }
         }
@@ -45,6 +58,11 @@ fun ButtonGroup(
                     shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
                     colors = SegmentedButtonDefaults.colors(activeContainerColor = MaterialTheme.colorScheme.primary),
                     label = { Text(option) },
+                    modifier =
+                        Modifier.semantics {
+                            role = Role.Button
+                            contentDescription = option
+                        },
                 )
             }
         }

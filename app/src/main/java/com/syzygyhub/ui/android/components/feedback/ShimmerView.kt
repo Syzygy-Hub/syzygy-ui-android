@@ -21,6 +21,8 @@ import androidx.compose.ui.semantics.hideFromAccessibility
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 import com.syzygyhub.ui.android.tokens.Radius
 
 /** An animated skeleton placeholder for list/table rows while content loads. */
@@ -28,7 +30,9 @@ import com.syzygyhub.ui.android.tokens.Radius
 fun ShimmerView(
     modifier: Modifier = Modifier,
     cornerRadius: Dp = Radius.sm,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     val transition = rememberInfiniteTransition(label = "shimmer")
     val alpha by transition.animateFloat(
         initialValue = 0.3f,

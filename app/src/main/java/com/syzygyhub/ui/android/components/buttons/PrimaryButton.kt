@@ -10,7 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.syzygyhub.ui.android.tokens.Radius
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 private val MinTouchTarget = 48.dp
 
@@ -21,7 +22,9 @@ fun PrimaryButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     contentDescription: String = text,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Button(
         onClick = onClick,
         modifier =
@@ -29,7 +32,7 @@ fun PrimaryButton(
                 .defaultMinSize(minHeight = MinTouchTarget)
                 .semantics { this.contentDescription = contentDescription },
         enabled = enabled,
-        shape = RoundedCornerShape(Radius.md),
+        shape = RoundedCornerShape(theme.radius.md),
         colors = ButtonDefaults.buttonColors(),
     ) {
         Text(text = text)

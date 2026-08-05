@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 private val MinTouchTarget = 48.dp
 
@@ -26,7 +28,9 @@ fun RatingInput(
     onRatingChange: (Int) -> Unit,
     modifier: Modifier = Modifier,
     maxRating: Int = 5,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Row(modifier = modifier.semantics { contentDescription = "Rating: $rating out of $maxRating stars" }) {
         for (star in 1..maxRating) {
             val filled = star <= rating

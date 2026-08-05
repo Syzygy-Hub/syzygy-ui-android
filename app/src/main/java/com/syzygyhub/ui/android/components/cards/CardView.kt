@@ -10,21 +10,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.syzygyhub.ui.android.tokens.Radius
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 @Composable
 fun CardView(
     modifier: Modifier = Modifier,
     elevation: Dp = 2.dp,
+    theme: SyzygyTheme? = null,
     content: @Composable () -> Unit,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     Card(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(Radius.lg),
+        shape = RoundedCornerShape(theme.radius.lg),
         elevation = CardDefaults.cardElevation(defaultElevation = elevation),
     ) {
-        Column(modifier = Modifier.padding(Spacing.md)) {
+        Column(modifier = Modifier.padding(theme.spacing.md)) {
             content()
         }
     }

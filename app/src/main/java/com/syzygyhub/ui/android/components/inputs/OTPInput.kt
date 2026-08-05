@@ -19,7 +19,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.syzygyhub.ui.android.tokens.Spacing
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyTheme
 
 /** A row of [length] fixed single-character boxes for OTP/PIN entry, auto-advancing focus. */
 @Composable
@@ -28,7 +29,9 @@ fun OTPInput(
     onCodeChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     length: Int = 6,
+    theme: SyzygyTheme? = null,
 ) {
+    val theme = theme ?: LocalSyzygyTheme.current
     val focusRequesters = remember(length) { List(length) { FocusRequester() } }
     val digits = remember(length) { mutableStateListOf(*Array(length) { "" }) }
 
@@ -38,7 +41,7 @@ fun OTPInput(
         }
     }
 
-    Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+    Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(theme.spacing.sm)) {
         for (i in 0 until length) {
             OutlinedTextField(
                 value = TextFieldValue(digits[i], selection = TextRange(digits[i].length)),
