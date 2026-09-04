@@ -1,57 +1,15 @@
 name: Release
 
 on:
-  workflow_run:
-    workflows: ["Android CI"]
-    types:
-      - completed
-    branches:
-      - main
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   release:
-    if: >
-      github.event.workflow_run.conclusion == 'success' &&
-      startsWith(github.event.workflow_run.head_commit.message, 'release:')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.workflow_run.head_sha }}
-
-      - name: Extract version
-        id: extract_version
-        run: |
-          MESSAGE="${{ github.event.workflow_run.head_commit.message }}"
-          VERSION=$(echo "$MESSAGE" | sed -n 's/^release: *v\?\([0-9][0-9A-Za-z.\-]*\).*/\1/p')
-          if [ -z "$VERSION" ]; then
-            echo "Could not extract version from commit message: $MESSAGE"
-            exit 1
-          fi
-          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
-
-      - name: Sync build.gradle.kts version
-        run: |
-          COMMIT_VERSION="${{ env.VERSION }}"
-          sed -i "s/version = \".*\"/version = \"$COMMIT_VERSION\"/" app/build.gradle.kts
-          echo "Updated version to $COMMIT_VERSION"
-
-      - name: Delete existing tag if exists
-        run: git push origin :refs/tags/${{ env.VERSION }} || true
-
-      - name: Create GitHub Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create "${{ env.VERSION }}" \
-            --title "${{ env.VERSION }}" \
-            --notes "${{ github.event.workflow_run.head_commit.message }}"
-
-      - name: Summary
-        run: |
-          echo "✅ GitHub Release ${{ env.VERSION }} created"
-          echo "✅ JitPack will auto-publish from the release tag"
+    uses: Syzygy-Hub/.github/.github/workflows/android-release.yml@main
+    secrets: inherit

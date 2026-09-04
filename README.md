@@ -2,17 +2,25 @@
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![Platform](https://img.shields.io/badge/Android-API%2029%2B-3DDC84?logo=android&logoColor=white)](https://developer.android.com)
-[![Version](https://img.shields.io/badge/Version-2.4.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-2.5.0-blue.svg)](CHANGELOG.md)
 [![JitPack](https://jitpack.io/v/Syzygy-Hub/syzygy-ui-android.svg)](https://jitpack.io/#Syzygy-Hub/syzygy-ui-android)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/android.yml/badge.svg)](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/android.yml)
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Syzygy-Hub/syzygy-brand-assets/main/Assets/syzygy-banner-dark-2400.png">
-  <img src="https://raw.githubusercontent.com/Syzygy-Hub/syzygy-brand-assets/main/Assets/syzygy-banner-light-2400.png" alt="Syzygy" width="500">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Syzygy-Hub/.github/main/brand/assets/banners/syzygy-banner-dark-2400.png">
+  <img src="https://raw.githubusercontent.com/Syzygy-Hub/.github/main/brand/assets/banners/syzygy-banner-light-2400.png" alt="Syzygy" width="500">
 </picture>
 
+The cross-platform design system layer of the Syzygy ecosystem — providing SyzygyTheme, runtime theme switching, and UI components across iOS, Android, React Native and Flutter.
+
 Production-ready Jetpack Compose component library with Material 3 design tokens, Dark Mode, and zero third-party dependencies.
+
+## Role in the Syzygy Ecosystem
+
+`syzygy-ui-android` is the design system layer. It depends only on `syzygy-foundation-android` and is independently usable without adopting Core, Services or AI.
+
+Full ecosystem architecture: [ecosystem-fragment.md](https://github.com/Syzygy-Hub/.github/blob/main/docs/ecosystem-fragment.md)
 
 ## Requirements
 - Android API 29+
@@ -39,6 +47,60 @@ dependencies {
 }
 ```
 
+## Theming
+
+syzygy-ui-android v2.4.0 ships a runtime theme system built on Compose's `CompositionLocal`.
+
+### Providing a theme
+
+Wrap your UI in `SyzygyThemeProvider` to inject a `SyzygyTheme` into the composition:
+
+```kotlin
+import com.syzygyhub.ui.android.theme.SyzygyTheme
+import com.syzygyhub.ui.android.theme.SyzygyThemeProvider
+
+SyzygyThemeProvider(theme = SyzygyTheme.dark) {
+    PrimaryButton(text = "Hello", onClick = {})
+}
+```
+
+### Reading the theme
+
+Inside any composable, read the current theme via the `LocalSyzygyTheme` composition local or the convenience function:
+
+```kotlin
+import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
+import com.syzygyhub.ui.android.theme.syzygyTheme
+
+// Option A — direct access
+val theme = LocalSyzygyTheme.current
+
+// Option B — convenience accessor
+val theme = syzygyTheme()
+```
+
+### Built-in themes
+
+| Name | Description |
+|------|-------------|
+| `SyzygyTheme.default` | Light theme, standard radius and typography |
+| `SyzygyTheme.dark` | Dark color palette, same radius and typography as default |
+| `SyzygyTheme.highContrast` | High-contrast colors, sharp corners, heavier font weights |
+
+### Component-level override
+
+Every public `@Composable` in this library accepts an optional `theme: SyzygyTheme? = null` parameter. Pass a theme to override just that component without affecting the rest of the tree:
+
+```kotlin
+PrimaryButton(
+    text = "Destructive action",
+    onClick = {},
+    theme = SyzygyTheme.highContrast,
+)
+```
+
+When `theme` is `null` (the default), the component reads from `LocalSyzygyTheme.current`.
+
 ## Components
 
 79 components across 9 categories (counted individually below):
@@ -53,6 +115,8 @@ dependencies {
 - **Navigation:** BackButton, TabBar, BottomNavigationBar, AppBar, SideMenu (aka Drawer), FloatingTabBar, StepIndicator (aka WizardSteps), Breadcrumbs
 - **Layout:** KeyboardAvoidingScrollView, PagerView (presentational paged content — distinct from navigation chrome like TabBar/BottomNavigationBar), AdaptiveStack, FlowLayout, StickyHeader, SafeAreaWrapper (native `WindowInsets.safeDrawing` handling), LabeledDivider (`DividerLine` with a centered/leading/trailing text label)
 - **Transitions:** `NavigationTransitions.slideTransition(_)`, `.crossFadeTransition()`, `.slideVerticalTransition(_)`, `.modalPresentationTransition()`, `.scaleTransition()`, `.fadeThroughTransition()`
+
+**PagerView — placement note**: PagerView is a presentational paged-content component, not a navigation element. It is listed under **Layout** for that reason — wire its `onPageChange` output into your own navigator if you want navigation semantics.
 
 **NetworkStatusBanner — cross-platform note**: On iOS and Android, `NetworkStatusBanner` self-detects connectivity via first-party OS APIs (`NWPathMonitor` / `ConnectivityManager`) and requires no `isOffline` prop. On React Native and Flutter, real network detection requires a third-party package that this library deliberately does not bundle, so the banner is controlled/presentational — pass `isOffline` from your own network state.
 
@@ -188,60 +252,6 @@ SyzygyUiTheme {
 ```
 
 See the [Components](#components) list above for everything else available.
-
-## Theming
-
-syzygy-ui-android v2.4.0 ships a runtime theme system built on Compose's `CompositionLocal`.
-
-### Providing a theme
-
-Wrap your UI in `SyzygyThemeProvider` to inject a `SyzygyTheme` into the composition:
-
-```kotlin
-import com.syzygyhub.ui.android.theme.SyzygyTheme
-import com.syzygyhub.ui.android.theme.SyzygyThemeProvider
-
-SyzygyThemeProvider(theme = SyzygyTheme.dark) {
-    PrimaryButton(text = "Hello", onClick = {})
-}
-```
-
-### Reading the theme
-
-Inside any composable, read the current theme via the `LocalSyzygyTheme` composition local or the convenience function:
-
-```kotlin
-import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
-import com.syzygyhub.ui.android.theme.syzygyTheme
-
-// Option A — direct access
-val theme = LocalSyzygyTheme.current
-
-// Option B — convenience accessor
-val theme = syzygyTheme()
-```
-
-### Built-in themes
-
-| Name | Description |
-|------|-------------|
-| `SyzygyTheme.default` | Light theme, standard radius and typography |
-| `SyzygyTheme.dark` | Dark color palette, same radius and typography as default |
-| `SyzygyTheme.highContrast` | High-contrast colors, sharp corners, heavier font weights |
-
-### Component-level override
-
-Every public `@Composable` in this library accepts an optional `theme: SyzygyTheme? = null` parameter. Pass a theme to override just that component without affecting the rest of the tree:
-
-```kotlin
-PrimaryButton(
-    text = "Destructive action",
-    onClick = {},
-    theme = SyzygyTheme.highContrast,
-)
-```
-
-When `theme` is `null` (the default), the component reads from `LocalSyzygyTheme.current`.
 
 ## Contributing & Releases
 
