@@ -1,0 +1,10 @@
+# Syzygy Repository Manifest
+# Schema: https://github.com/Syzygy-Hub/.github/blob/main/engineering/standards/repository-standard.md
+
+name: syzygy-ui-android
+type: ui
+platform: android
+language: kotlin
+package_manager: jitpack
+license: MIT
+version: 2.5.0

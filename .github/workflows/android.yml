@@ -2,9 +2,13 @@ name: Android CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   build-and-test:
@@ -25,6 +29,14 @@ jobs:
 
       - name: Build
         run: ./gradlew build
+
+      - name: Fetch ktlint config
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/Syzygy-Hub/.github/main/engineering/tooling/android/.editorconfig \
+            -o .editorconfig
+
+      - name: ktlint
+        run: ./gradlew ktlintCheck
 
       - name: Unit test
         run: ./gradlew test
@@ -77,25 +89,3 @@ jobs:
           path: |
             **/build/outputs/androidTest-results/**
             **/build/reports/androidTests/**
-
-  lint:
-    name: ktlint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: "17"
-          distribution: "temurin"
-
-      - name: Fetch shared ktlint config
-        run: curl -fsSL https://raw.githubusercontent.com/Syzygy-Hub/syzygy-lint-config/v1.0.0/.editorconfig -o .editorconfig
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: ktlint
-        run: ./gradlew ktlintCheck
