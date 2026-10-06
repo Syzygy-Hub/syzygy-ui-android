@@ -9,13 +9,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.syzygyhub.ui.android.components.badges.Badge
 import com.syzygyhub.ui.android.components.badges.BadgeVariant
 import com.syzygyhub.ui.android.tokens.Spacing
-import com.syzygyhub.ui.android.ui.theme.SyzygyUiTheme
+import com.syzygyhub.ui.android.theme.SyzygyThemeProvider
 
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun BadgePreviews() {
-    SyzygyUiTheme {
+    SyzygyThemeProvider {
         Row(
             modifier = Modifier.padding(Spacing.md),
             horizontalArrangement = Arrangement.spacedBy(Spacing.sm),

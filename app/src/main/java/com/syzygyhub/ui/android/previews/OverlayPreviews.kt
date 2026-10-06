@@ -11,13 +11,13 @@ import com.syzygyhub.ui.android.components.overlay.CollapsibleView
 import com.syzygyhub.ui.android.components.overlay.Popover
 import com.syzygyhub.ui.android.components.overlay.Tooltip
 import com.syzygyhub.ui.android.tokens.Spacing
-import com.syzygyhub.ui.android.ui.theme.SyzygyUiTheme
+import com.syzygyhub.ui.android.theme.SyzygyThemeProvider
 
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun OverlayPreviews() {
-    SyzygyUiTheme {
+    SyzygyThemeProvider {
         Column(modifier = Modifier.padding(Spacing.md)) {
             CollapsibleView(
                 title = "Shipping details",

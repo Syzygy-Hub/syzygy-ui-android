@@ -32,13 +32,13 @@ import com.syzygyhub.ui.android.components.inputs.TextInput
 import com.syzygyhub.ui.android.components.inputs.TimePickerField
 import com.syzygyhub.ui.android.components.inputs.ToggleSwitch
 import com.syzygyhub.ui.android.tokens.Spacing
-import com.syzygyhub.ui.android.ui.theme.SyzygyUiTheme
+import com.syzygyhub.ui.android.theme.SyzygyThemeProvider
 
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun InputPreviews() {
-    SyzygyUiTheme {
+    SyzygyThemeProvider {
         var text by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         var bio by remember { mutableStateOf("") }

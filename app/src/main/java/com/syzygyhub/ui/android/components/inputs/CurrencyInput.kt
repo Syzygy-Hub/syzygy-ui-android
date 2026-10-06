@@ -89,7 +89,7 @@ fun CurrencyInput(
 /** Where the currency symbol renders relative to a [CurrencyInput]'s numeric field. */
 enum class CurrencySymbolPosition { PREFIX, SUFFIX }
 
-private fun formatPlain(
+internal fun formatPlain(
     value: Double,
     symbols: DecimalFormatSymbols,
 ): String {

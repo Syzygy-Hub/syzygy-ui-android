@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    api("com.github.Syzygy-Hub:syzygy-foundation-android:3.0.0")
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.icons.extended)
@@ -64,7 +65,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.Syzygy-Hub"
                 artifactId = "syzygy-ui-android"
-                version = "2.5.0"
+                version = "3.0.0"
             }
         }
     }
@@ -94,7 +95,7 @@ afterEvaluate {
 val ktlintCli = configurations.register("ktlintCli") { }
 
 dependencies {
-    add(ktlintCli.name, "com.pinterest.ktlint:ktlint-cli:1.0.1")
+    add(ktlintCli.name, "com.pinterest.ktlint:ktlint-cli:1.5.0")
 }
 
 val ktlintCheckSources =
