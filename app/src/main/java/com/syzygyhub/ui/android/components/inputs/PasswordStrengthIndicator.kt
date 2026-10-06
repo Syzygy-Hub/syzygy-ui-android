@@ -17,7 +17,9 @@ import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
 import com.syzygyhub.ui.android.theme.SyzygyTheme
 import com.syzygyhub.ui.android.tokens.AppTypography.caption
 
-enum class PasswordStrength(val label: String) {
+enum class PasswordStrength(
+    val label: String,
+) {
     WEAK("Weak"),
     FAIR("Fair"),
     STRONG("Strong"),

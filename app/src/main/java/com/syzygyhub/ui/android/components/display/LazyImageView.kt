@@ -60,7 +60,7 @@ internal object ImageCache {
         object : LruCache<String, Bitmap>(maxMemoryKb / 8) {
             override fun sizeOf(
                 key: String,
-                value: Bitmap
+                value: Bitmap,
             ): Int = value.byteCount / 1024
         }
 
@@ -68,7 +68,7 @@ internal object ImageCache {
 
     fun putMemory(
         key: String,
-        bitmap: Bitmap
+        bitmap: Bitmap,
     ) {
         memoryCache.put(key, bitmap)
     }
@@ -77,7 +77,7 @@ internal object ImageCache {
 
     fun diskFile(
         context: Context,
-        key: String
+        key: String,
     ): File = File(diskCacheDir(context), key)
 
     /** SHA-256 of [url] so cache filenames are always filesystem-safe. */
@@ -127,7 +127,9 @@ internal fun evictLeastRecentlyUsed(
 private sealed interface ImageLoadState {
     data object Loading : ImageLoadState
 
-    data class Success(val bitmap: Bitmap) : ImageLoadState
+    data class Success(
+        val bitmap: Bitmap,
+    ) : ImageLoadState
 
     data object Failure : ImageLoadState
 }
@@ -164,7 +166,7 @@ internal suspend fun <T> retryOnIOException(
  */
 private suspend fun loadBitmap(
     context: Context,
-    url: String
+    url: String,
 ): Bitmap? {
     val key = ImageCache.hashUrl(url)
 

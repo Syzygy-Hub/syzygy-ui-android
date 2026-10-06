@@ -56,8 +56,7 @@ fun ActionSheet(
                             .clickable {
                                 action.onClick()
                                 onDismissRequest()
-                            }
-                            .padding(horizontal = theme.spacing.lg, vertical = theme.spacing.md),
+                            }.padding(horizontal = theme.spacing.lg, vertical = theme.spacing.md),
                 )
             }
         }

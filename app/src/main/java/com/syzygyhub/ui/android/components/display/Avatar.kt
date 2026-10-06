@@ -17,7 +17,9 @@ import androidx.compose.ui.unit.dp
 import com.syzygyhub.ui.android.theme.LocalSyzygyTheme
 import com.syzygyhub.ui.android.theme.SyzygyTheme
 
-enum class AvatarSize(val dimension: Dp) {
+enum class AvatarSize(
+    val dimension: Dp,
+) {
     SMALL(32.dp),
     MEDIUM(44.dp),
     LARGE(64.dp),

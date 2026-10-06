@@ -24,8 +24,8 @@ import com.syzygyhub.ui.android.components.layout.LabeledDividerAlignment
 import com.syzygyhub.ui.android.components.layout.SafeAreaEdge
 import com.syzygyhub.ui.android.components.layout.SafeAreaWrapper
 import com.syzygyhub.ui.android.components.layout.StickyHeader
-import com.syzygyhub.ui.android.tokens.Spacing
 import com.syzygyhub.ui.android.theme.SyzygyThemeProvider
+import com.syzygyhub.ui.android.tokens.Spacing
 
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)

@@ -42,36 +42,40 @@ class CurrencyFormattingTest {
     @Test
     fun normalizes_plain_digits_to_double() {
         val raw = "1234"
-        val normalized = raw
-            .replace(usSymbols.groupingSeparator.toString(), "")
-            .replace(usSymbols.decimalSeparator, '.')
+        val normalized =
+            raw
+                .replace(usSymbols.groupingSeparator.toString(), "")
+                .replace(usSymbols.decimalSeparator, '.')
         assertEquals(1234.0, normalized.toDoubleOrNull())
     }
 
     @Test
     fun normalizes_formatted_value_with_thousands_separator() {
         val raw = "1,000"
-        val normalized = raw
-            .replace(usSymbols.groupingSeparator.toString(), "")
-            .replace(usSymbols.decimalSeparator, '.')
+        val normalized =
+            raw
+                .replace(usSymbols.groupingSeparator.toString(), "")
+                .replace(usSymbols.decimalSeparator, '.')
         assertEquals(1000.0, normalized.toDoubleOrNull())
     }
 
     @Test
     fun returns_null_for_empty_input() {
         val raw = ""
-        val normalized = raw
-            .replace(usSymbols.groupingSeparator.toString(), "")
-            .replace(usSymbols.decimalSeparator, '.')
+        val normalized =
+            raw
+                .replace(usSymbols.groupingSeparator.toString(), "")
+                .replace(usSymbols.decimalSeparator, '.')
         assertNull(normalized.toDoubleOrNull())
     }
 
     @Test
     fun returns_null_for_non_numeric_input() {
         val raw = "abc"
-        val normalized = raw
-            .replace(usSymbols.groupingSeparator.toString(), "")
-            .replace(usSymbols.decimalSeparator, '.')
+        val normalized =
+            raw
+                .replace(usSymbols.groupingSeparator.toString(), "")
+                .replace(usSymbols.decimalSeparator, '.')
         assertNull(normalized.toDoubleOrNull())
     }
 
@@ -81,9 +85,10 @@ class CurrencyFormattingTest {
     fun parsed_value_roundtrips_through_format_and_normalize() {
         val original = 1234.56
         val formatted = formatPlain(original, usSymbols)
-        val normalized = formatted
-            .replace(usSymbols.groupingSeparator.toString(), "")
-            .replace(usSymbols.decimalSeparator, '.')
+        val normalized =
+            formatted
+                .replace(usSymbols.groupingSeparator.toString(), "")
+                .replace(usSymbols.decimalSeparator, '.')
         assertEquals(original, normalized.toDoubleOrNull())
     }
 }

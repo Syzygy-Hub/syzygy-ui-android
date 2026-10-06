@@ -67,12 +67,13 @@ class PasswordStrengthTest {
         val strength = computePasswordStrength("abc")
         assertEquals(PasswordStrength.WEAK, strength)
         // WEAK fills exactly 1 of 4 segments in the indicator
-        val filledSegments = when (strength) {
-            PasswordStrength.WEAK -> 1
-            PasswordStrength.FAIR -> 2
-            PasswordStrength.STRONG -> 3
-            PasswordStrength.VERY_STRONG -> 4
-        }
+        val filledSegments =
+            when (strength) {
+                PasswordStrength.WEAK -> 1
+                PasswordStrength.FAIR -> 2
+                PasswordStrength.STRONG -> 3
+                PasswordStrength.VERY_STRONG -> 4
+            }
         assertEquals(1, filledSegments)
     }
 
@@ -80,12 +81,13 @@ class PasswordStrengthTest {
     fun strong_password_maps_to_three_segments() {
         val strength = computePasswordStrength("abcDEF12!")
         assertEquals(PasswordStrength.STRONG, strength)
-        val filledSegments = when (strength) {
-            PasswordStrength.WEAK -> 1
-            PasswordStrength.FAIR -> 2
-            PasswordStrength.STRONG -> 3
-            PasswordStrength.VERY_STRONG -> 4
-        }
+        val filledSegments =
+            when (strength) {
+                PasswordStrength.WEAK -> 1
+                PasswordStrength.FAIR -> 2
+                PasswordStrength.STRONG -> 3
+                PasswordStrength.VERY_STRONG -> 4
+            }
         assertEquals(3, filledSegments)
     }
 }

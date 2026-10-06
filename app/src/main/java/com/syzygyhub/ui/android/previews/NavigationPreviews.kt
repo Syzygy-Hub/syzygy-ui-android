@@ -17,8 +17,8 @@ import com.syzygyhub.ui.android.components.navigation.FloatingTabBar
 import com.syzygyhub.ui.android.components.navigation.StepIndicator
 import com.syzygyhub.ui.android.components.navigation.TabBar
 import com.syzygyhub.ui.android.components.navigation.TabBarItem
-import com.syzygyhub.ui.android.tokens.Spacing
 import com.syzygyhub.ui.android.theme.SyzygyThemeProvider
+import com.syzygyhub.ui.android.tokens.Spacing
 
 private val previewTabItems =
     listOf(

@@ -30,6 +30,8 @@ object Animation {
         val accelerate: ComposeEasing = FastOutLinearInEasing
 
         /** A physically-modeled spring [SpringSpec], not a fixed-duration [ComposeEasing] curve. */
-        fun <T> spring(): SpringSpec<T> = androidx.compose.animation.core.spring()
+        fun <T> spring(): SpringSpec<T> =
+            androidx.compose.animation.core
+                .spring()
     }
 }

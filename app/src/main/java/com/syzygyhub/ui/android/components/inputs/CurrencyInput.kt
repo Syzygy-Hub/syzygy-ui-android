@@ -58,7 +58,8 @@ fun CurrencyInput(
         onValueChange = { newText ->
             text = newText
             val normalized =
-                newText.replace(symbols.groupingSeparator.toString(), "")
+                newText
+                    .replace(symbols.groupingSeparator.toString(), "")
                     .replace(symbols.decimalSeparator, '.')
             onValueChange(normalized.toDoubleOrNull())
         },
