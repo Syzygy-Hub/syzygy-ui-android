@@ -53,7 +53,8 @@ fun SkeletonView(
         label = "skeletonAlpha",
     )
     val base =
-        MaterialTheme.colorScheme.onSurface.copy(alpha = alpha)
+        MaterialTheme.colorScheme.onSurface
+            .copy(alpha = alpha)
             .compositeOver(MaterialTheme.colorScheme.surfaceVariant)
     val clipShape = if (shape == SkeletonShape.CIRCLE) CircleShape else RoundedCornerShape(cornerRadius)
 

@@ -8,6 +8,6 @@ object Radius {
     val sm: Dp = 4.dp
     val md: Dp = 8.dp
     val lg: Dp = 16.dp
-    val xl: Dp = 16.dp
+    val xl: Dp = 24.dp
     val full: Dp = 9999.dp
 }

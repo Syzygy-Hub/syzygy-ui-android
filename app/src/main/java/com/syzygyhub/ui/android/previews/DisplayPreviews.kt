@@ -31,14 +31,14 @@ import com.syzygyhub.ui.android.components.display.StatsCard
 import com.syzygyhub.ui.android.components.display.Timeline
 import com.syzygyhub.ui.android.components.display.TimelineItem
 import com.syzygyhub.ui.android.components.display.Trend
+import com.syzygyhub.ui.android.theme.SyzygyThemeProvider
 import com.syzygyhub.ui.android.tokens.Spacing
-import com.syzygyhub.ui.android.ui.theme.SyzygyUiTheme
 
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun DisplayPreviews() {
-    SyzygyUiTheme {
+    SyzygyThemeProvider {
         Column(
             modifier = Modifier.padding(Spacing.md),
             verticalArrangement = Arrangement.spacedBy(Spacing.md),

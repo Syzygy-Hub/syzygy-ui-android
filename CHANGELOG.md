@@ -15,13 +15,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.0.0] - 2026-10-06
+
+### Changed (Breaking)
+
+- **Foundation 3.0.0 minimum dependency added** — `syzygy-foundation-android >=3.0.0` is now a required dependency. Projects on an older Foundation version must upgrade before adopting this release.
+- **`SyzygyUiTheme` removed** — the legacy `SyzygyUiTheme` composable has been deleted. Use `SyzygyThemeProvider` (introduced in 2.4.0) to provide a theme; read the active theme via `LocalSyzygyTheme.current` or the `syzygyTheme()` convenience accessor.
+- **`Radius.xl` corrected from 16dp to 24dp** — the `xl` corner-radius token was misaligned with the cross-platform design spec. Any component or screen that relied on the old 16dp value will render with larger corners after upgrading; update explicit usages of `Radius.xl` if you need to preserve the previous visual.
+
+---
+
 ## [2.5.0] - 2026-09-04
 
 ### Changed
 
 - CI workflow improvements: tags-ignore trigger, lint order fix, Node/runner updates
 - Release workflow: added required permissions block
-- RN: added publish-npm job for reliable npm OIDC publishing
 
 ---
 
@@ -129,25 +138,36 @@ No CI/lint carry-over fixes were needed for this release — Android's ktlint se
 - Reordered README.md's sections to: Requirements, Installation, Components, Design Tokens, Usage, Contributing & Releases, License.
 - Fixed the Usage section's example, which previously referenced a nonexistent `Colors.lightScheme`/`Typography.default` API — it now uses the real `SyzygyUiTheme` composable.
 
-## [1.0.4] - v1.0.4
+## [1.0.4]
 
 - TextInput character counter.
 
-## [1.0.3] - v1.0.3
+## [1.0.3]
 
 - Update installation docs.
 
-## [1.0.2] - v1.0.2
+## [1.0.2]
 
 - Add JitPack publishing and usage docs.
 
-## [1.0.1] - v1.0.1
+## [1.0.1]
 
 - README improvements.
 
-## [1.0.0] - v1.0.0
+## [1.0.0]
 
 - Initial release.
 
+[3.0.0]: https://github.com/Syzygy-Hub/syzygy-ui-android/compare/2.5.0...3.0.0
 [2.5.0]: https://github.com/Syzygy-Hub/syzygy-ui-android/compare/2.4.0...2.5.0
 [2.4.0]: https://github.com/Syzygy-Hub/syzygy-ui-android/compare/2.3.0...2.4.0
+[2.3.0]: https://github.com/Syzygy-Hub/syzygy-ui-android/compare/2.2.1...2.3.0
+[2.2.1]: https://github.com/Syzygy-Hub/syzygy-ui-android/compare/2.2.0...2.2.1
+[2.2.0]: https://github.com/Syzygy-Hub/syzygy-ui-android/compare/2.1.0...2.2.0
+[2.1.0]: https://github.com/Syzygy-Hub/syzygy-ui-android/compare/2.0.0...2.1.0
+[2.0.0]: https://github.com/Syzygy-Hub/syzygy-ui-android/compare/1.0.4...2.0.0
+[1.0.4]: https://github.com/Syzygy-Hub/syzygy-ui-android/compare/1.0.3...1.0.4
+[1.0.3]: https://github.com/Syzygy-Hub/syzygy-ui-android/compare/1.0.2...1.0.3
+[1.0.2]: https://github.com/Syzygy-Hub/syzygy-ui-android/compare/1.0.1...1.0.2
+[1.0.1]: https://github.com/Syzygy-Hub/syzygy-ui-android/compare/1.0.0...1.0.1
+[1.0.0]: https://github.com/Syzygy-Hub/syzygy-ui-android/releases/tag/1.0.0

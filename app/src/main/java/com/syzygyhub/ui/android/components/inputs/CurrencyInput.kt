@@ -58,7 +58,8 @@ fun CurrencyInput(
         onValueChange = { newText ->
             text = newText
             val normalized =
-                newText.replace(symbols.groupingSeparator.toString(), "")
+                newText
+                    .replace(symbols.groupingSeparator.toString(), "")
                     .replace(symbols.decimalSeparator, '.')
             onValueChange(normalized.toDoubleOrNull())
         },
@@ -89,7 +90,7 @@ fun CurrencyInput(
 /** Where the currency symbol renders relative to a [CurrencyInput]'s numeric field. */
 enum class CurrencySymbolPosition { PREFIX, SUFFIX }
 
-private fun formatPlain(
+internal fun formatPlain(
     value: Double,
     symbols: DecimalFormatSymbols,
 ): String {

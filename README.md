@@ -2,10 +2,10 @@
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2-7F52FF?logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![Platform](https://img.shields.io/badge/Android-API%2029%2B-3DDC84?logo=android&logoColor=white)](https://developer.android.com)
-[![Version](https://img.shields.io/badge/Version-2.5.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-3.0.0-blue.svg)](CHANGELOG.md)
 [![JitPack](https://jitpack.io/v/Syzygy-Hub/syzygy-ui-android.svg)](https://jitpack.io/#Syzygy-Hub/syzygy-ui-android)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![CI](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/android.yml/badge.svg)](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/android.yml)
+[![CI](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/ci.yml/badge.svg)](https://github.com/Syzygy-Hub/syzygy-ui-android/actions/workflows/ci.yml)
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Syzygy-Hub/.github/main/brand/assets/banners/syzygy-banner-dark-2400.png">
@@ -26,6 +26,7 @@ Full ecosystem architecture: [ecosystem-fragment.md](https://github.com/Syzygy-H
 - Android API 29+
 - Kotlin 2.x
 - Jetpack Compose
+- syzygy-foundation-android >= 3.0.0
 
 ## Installation
 
@@ -43,13 +44,13 @@ dependencyResolutionManagement {
 In your app's `build.gradle.kts`:
 ```kotlin
 dependencies {
-    implementation("com.github.Syzygy-Hub:syzygy-ui-android:v2.2.0")
+    implementation("com.github.Syzygy-Hub:syzygy-ui-android:3.0.0")
 }
 ```
 
 ## Theming
 
-syzygy-ui-android v2.4.0 ships a runtime theme system built on Compose's `CompositionLocal`.
+syzygy-ui-android ships a runtime theme system built on Compose's `CompositionLocal`.
 
 ### Providing a theme
 
@@ -135,8 +136,6 @@ Extension properties on Material 3's `ColorScheme`. `primary`/`secondary`/`terti
 | `onSuccess` | `#FFFFFF` |
 | `warning` | `#F9A825` |
 | `onWarning` | `#000000` |
-| `danger` | aliases `error` |
-| `onDanger` | aliases `onError` |
 | `primaryMuted` | `primary` @ 12% over `surface` |
 | `destructiveMuted` | `error` @ 12% over `surface` |
 | `successMuted` | `success` @ 12% over `surface` |
@@ -186,8 +185,8 @@ Text(text = "Hello", style = MaterialTheme.typography.title)
 | `sm` | 4.dp |
 | `md` | 8.dp |
 | `lg` | 16.dp |
-| `xl` | 16.dp |
-| `full` | 999.dp (pill/capsule shapes) |
+| `xl` | 24.dp |
+| `full` | 9999.dp (pill/capsule shapes) |
 
 ### Elevation (`Elevation`)
 
@@ -243,9 +242,9 @@ Text(text = "Hello", style = MaterialTheme.typography.title)
 ```kotlin
 import com.syzygyhub.ui.android.components.buttons.PrimaryButton
 import com.syzygyhub.ui.android.components.inputs.TextInput
-import com.syzygyhub.ui.android.ui.theme.SyzygyUiTheme
+import com.syzygyhub.ui.android.theme.SyzygyThemeProvider
 
-SyzygyUiTheme {
+SyzygyThemeProvider {
     PrimaryButton(text = "Get Started", onClick = { /* handle click */ })
     TextInput(label = "Email", value = email, onValueChange = { email = it })
 }
@@ -266,7 +265,7 @@ Releases are fully automated. To publish a new version:
 
 2. Commit with the release prefix:
 ```sh
-   git commit -m "release: v1.2.0 — description of changes"
+   git commit -m "release: 1.2.0 — description of changes"
    git push origin main
 ```
 
@@ -277,10 +276,10 @@ Releases are fully automated. To publish a new version:
    - JitPack automatically publishes from the release tag
 
 ### Version format
-Follow semver: `v{major}.{minor}.{patch}`
-- Patch: `v1.0.1` — bug fixes
-- Minor: `v1.1.0` — new components or features
-- Major: `v2.0.0` — breaking changes
+Follow semver: `{major}.{minor}.{patch}`
+- Patch: `1.0.1` — bug fixes
+- Minor: `1.1.0` — new components or features
+- Major: `2.0.0` — breaking changes
 
 ## License
 MIT

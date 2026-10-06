@@ -35,8 +35,7 @@ fun Chip(
                 .background(
                     color = MaterialTheme.colorScheme.surfaceVariant,
                     shape = CircleShape,
-                )
-                .padding(horizontal = theme.spacing.sm, vertical = theme.spacing.xs)
+                ).padding(horizontal = theme.spacing.sm, vertical = theme.spacing.xs)
                 .semantics { contentDescription = text },
         verticalAlignment = Alignment.CenterVertically,
     ) {

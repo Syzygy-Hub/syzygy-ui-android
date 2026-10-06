@@ -45,9 +45,10 @@ fun ShimmerView(
         label = "shimmerAlpha",
     )
     val base =
-        MaterialTheme.colorScheme.onSurface.copy(
-            alpha = alpha
-        ).compositeOver(MaterialTheme.colorScheme.surfaceVariant)
+        MaterialTheme.colorScheme.onSurface
+            .copy(
+                alpha = alpha,
+            ).compositeOver(MaterialTheme.colorScheme.surfaceVariant)
 
     Box(
         modifier =

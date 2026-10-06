@@ -17,8 +17,8 @@ import com.syzygyhub.ui.android.components.navigation.FloatingTabBar
 import com.syzygyhub.ui.android.components.navigation.StepIndicator
 import com.syzygyhub.ui.android.components.navigation.TabBar
 import com.syzygyhub.ui.android.components.navigation.TabBarItem
+import com.syzygyhub.ui.android.theme.SyzygyThemeProvider
 import com.syzygyhub.ui.android.tokens.Spacing
-import com.syzygyhub.ui.android.ui.theme.SyzygyUiTheme
 
 private val previewTabItems =
     listOf(
@@ -31,7 +31,7 @@ private val previewTabItems =
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun NavigationPreviews() {
-    SyzygyUiTheme {
+    SyzygyThemeProvider {
         Column {
             AppBar(title = "Settings")
             BackButton(onClick = {}, modifier = Modifier.padding(Spacing.md))

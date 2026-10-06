@@ -24,14 +24,14 @@ import com.syzygyhub.ui.android.components.layout.LabeledDividerAlignment
 import com.syzygyhub.ui.android.components.layout.SafeAreaEdge
 import com.syzygyhub.ui.android.components.layout.SafeAreaWrapper
 import com.syzygyhub.ui.android.components.layout.StickyHeader
+import com.syzygyhub.ui.android.theme.SyzygyThemeProvider
 import com.syzygyhub.ui.android.tokens.Spacing
-import com.syzygyhub.ui.android.ui.theme.SyzygyUiTheme
 
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun LayoutPreviews() {
-    SyzygyUiTheme {
+    SyzygyThemeProvider {
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         KeyboardAvoidingScrollView {

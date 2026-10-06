@@ -25,14 +25,14 @@ import com.syzygyhub.ui.android.components.feedback.SkeletonShape
 import com.syzygyhub.ui.android.components.feedback.SkeletonView
 import com.syzygyhub.ui.android.components.feedback.ToastVariant
 import com.syzygyhub.ui.android.components.feedback.ToastView
+import com.syzygyhub.ui.android.theme.SyzygyThemeProvider
 import com.syzygyhub.ui.android.tokens.Spacing
-import com.syzygyhub.ui.android.ui.theme.SyzygyUiTheme
 
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun FeedbackPreviews() {
-    SyzygyUiTheme {
+    SyzygyThemeProvider {
         Column(
             modifier = Modifier.padding(Spacing.md),
             verticalArrangement = Arrangement.spacedBy(Spacing.md),
